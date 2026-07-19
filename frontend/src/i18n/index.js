@@ -14,15 +14,18 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    lng: "tr",
     resources: {
       tr: { translation: tr },
       en: { translation: en },
     },
     fallbackLng: "tr",
     supportedLngs: ["tr", "en"],
+    nonExplicitSupportedLngs: true,
+    load: "languageOnly",
     interpolation: { escapeValue: false },
     detection: {
-      order: ["localStorage", "navigator"],
+      order: ["localStorage"],
       caches: ["localStorage"],
       lookupLocalStorage: "tin_language",
     },

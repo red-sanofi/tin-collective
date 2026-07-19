@@ -121,10 +121,9 @@ On first startup the backend will:
 
 ## Languages
 
-- Default UI language: **Turkish (`tr`)**
-- Also available: **English (`en`)**
-- Switch language from the **TR / EN** toggle in the site header
-- Your choice is saved in the browser
+- Default language: **Turkish (`tr`)** on every first visit
+- Also available: **English (`en`)** via the header **TR / EN** toggle
+- Your language choice is saved in the browser; until you switch, the site stays Turkish
 - API error messages follow the selected language via the `Accept-Language` header
 
 To add another language later:
