@@ -1,0 +1,159 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "viewAll": "View all",
+    "viewDetails": "View details",
+    "readMore": "Read more",
+    "view": "View",
+    "published": "Published",
+    "open": "Open"
+  },
+  "nav": {
+    "educations": "Educations",
+    "announcements": "Announcements",
+    "joinUs": "Join Us",
+    "admin": "Admin",
+    "profile": "Profile",
+    "login": "Log in",
+    "logout": "Log out",
+    "signup": "Sign up"
+  },
+  "footer": {
+    "tagline": "Tin Kolektif — collective learning, culture, and creation."
+  },
+  "language": {
+    "label": "Language",
+    "tr": "Türkçe",
+    "en": "English"
+  },
+  "home": {
+    "eyebrow": "Collective learning platform",
+    "title": "Workshops, culture, and open calls — together.",
+    "copy": "Tin Kolektif brings people together for hands-on educations from chocolate workshops to AI, cinema readings, and community announcements.",
+    "browseEducations": "Browse educations",
+    "joinCollective": "Join the collective",
+    "instagramCommunity": "community on Instagram",
+    "openRegistrations": "registrations open for upcoming sessions",
+    "upcomingEducations": "Upcoming educations",
+    "latestAnnouncements": "Latest announcements"
+  },
+  "educations": {
+    "eyebrow": "Educations",
+    "title": "Register for workshops and learning sessions",
+    "allCategories": "All categories",
+    "loading": "Loading educations...",
+    "back": "Back to educations",
+    "when": "When",
+    "mode": "Mode",
+    "location": "Location",
+    "capacity": "Capacity",
+    "register": "Register",
+    "cancelRegistration": "Cancel registration",
+    "waitlistOnly": "Waitlist only",
+    "registered": "Registered",
+    "spotsLeft": "{{remaining}} spots left / {{capacity}}",
+    "loadingDetail": "Loading education...",
+    "registrationSuccess": "Registration successful.",
+    "registrationCancelled": "Registration cancelled."
+  },
+  "announcements": {
+    "eyebrow": "Announcements",
+    "title": "News, open calls, and community updates",
+    "loading": "Loading announcements...",
+    "back": "Back to announcements",
+    "loadingDetail": "Loading announcement..."
+  },
+  "joinUs": {
+    "eyebrow": "Join Us",
+    "title": "Become part of Tin Kolektif",
+    "copy": "We welcome educators, artists, technologists, and community builders who want to co-create workshops, events, and open calls.",
+    "feature1": "Lead or co-host educations",
+    "feature2": "Collaborate on cultural programming",
+    "feature3": "Join our volunteer and mentor network",
+    "success": "Thank you. Your application has been received.",
+    "submit": "Submit application"
+  },
+  "auth": {
+    "loginTitle": "Log in",
+    "registerTitle": "Create account",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "loginButton": "Log in",
+    "registerButton": "Sign up",
+    "needAccount": "Need an account?",
+    "haveAccount": "Already registered?",
+    "invalidCredentials": "Invalid username or password."
+  },
+  "profile": {
+    "eyebrow": "Profile",
+    "welcome": "Welcome, {{username}}",
+    "yourDetails": "Your details",
+    "phone": "Phone",
+    "bio": "Bio",
+    "saveProfile": "Save profile",
+    "updated": "Profile updated.",
+    "yourRegistrations": "Your registrations",
+    "noRegistrations": "No registrations yet."
+  },
+  "admin": {
+    "eyebrow": "Admin",
+    "title": "Create educations and announcements",
+    "newEducation": "New education",
+    "newAnnouncement": "New announcement",
+    "titleField": "Title",
+    "summary": "Summary",
+    "description": "Description",
+    "category": "Category",
+    "deliveryMode": "Delivery mode",
+    "location": "Location",
+    "startAt": "Start at",
+    "endAt": "End at",
+    "capacity": "Capacity",
+    "published": "Published",
+    "publishedAt": "Published at",
+    "body": "Body",
+    "createEducation": "Create education",
+    "createAnnouncement": "Create announcement",
+    "educationCreated": "Education created.",
+    "announcementCreated": "Announcement created."
+  },
+  "forms": {
+    "fullName": "Full name",
+    "phone": "Phone",
+    "interestArea": "Interest area",
+    "portfolioUrl": "Portfolio or social link",
+    "aboutYou": "Tell us about yourself"
+  },
+  "categories": {
+    "Workshop": "Workshop",
+    "Technology": "Technology",
+    "Culture": "Culture"
+  },
+  "interestAreas": {
+    "Education": "Education",
+    "Workshop": "Workshop",
+    "Technology": "Technology",
+    "Culture": "Culture",
+    "Volunteer": "Volunteer"
+  },
+  "deliveryMode": {
+    "online": "Online",
+    "in_person": "In person",
+    "hybrid": "Hybrid"
+  },
+  "registrationStatus": {
+    "confirmed": "Confirmed",
+    "cancelled": "Cancelled",
+    "waitlist": "Waitlist"
+  },
+  "errors": {
+    "requestFailed": "Request failed.",
+    "educationNotFound": "Education not found.",
+    "alreadyRegistered": "You are already registered for this education.",
+    "passwordMismatch": "Passwords do not match."
+  }
+}

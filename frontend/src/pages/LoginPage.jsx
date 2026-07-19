@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import FormField from "../components/FormField";
 import { useAuth } from "../context/AuthContext";
 
 export default function LoginPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { login } = useAuth();
   const [form, setForm] = useState({ username: "", password: "" });
@@ -19,24 +21,24 @@ export default function LoginPage() {
     try {
       await login(form);
       navigate("/profile");
-    } catch (err) {
-      setError("Invalid username or password.");
+    } catch {
+      setError(t("auth.invalidCredentials"));
     }
   }
 
   return (
     <div className="auth-page panel">
-      <h1>Log in</h1>
+      <h1>{t("auth.loginTitle")}</h1>
       <form className="stack-form" onSubmit={handleSubmit}>
         <FormField
-          label="Username"
+          label={t("auth.username")}
           name="username"
           value={form.username}
           onChange={handleChange}
           required
         />
         <FormField
-          label="Password"
+          label={t("auth.password")}
           name="password"
           type="password"
           value={form.password}
@@ -45,11 +47,11 @@ export default function LoginPage() {
         />
         {error && <div className="alert alert-error">{error}</div>}
         <button type="submit" className="btn btn-primary">
-          Log in
+          {t("auth.loginButton")}
         </button>
       </form>
       <p>
-        Need an account? <Link to="/register">Sign up</Link>
+        {t("auth.needAccount")} <Link to="/register">{t("nav.signup")}</Link>
       </p>
     </div>
   );

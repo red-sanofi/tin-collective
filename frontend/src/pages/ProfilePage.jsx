@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { api } from "../api/client";
 import FormField from "../components/FormField";
 import { useAuth } from "../context/AuthContext";
+import { translateApiError, translateRegistrationStatus } from "../utils/i18nHelpers";
 
 export default function ProfilePage() {
+  const { t } = useTranslation();
   const { user, refreshUser } = useAuth();
   const [registrations, setRegistrations] = useState([]);
   const [form, setForm] = useState({
@@ -40,9 +43,9 @@ export default function ProfilePage() {
     try {
       await api.updateMe(form);
       await refreshUser();
-      setMessage("Profile updated.");
+      setMessage(t("profile.updated"));
     } catch (err) {
-      setError(err.message);
+      setError(translateApiError(t, err));
     }
   }
 
@@ -50,35 +53,35 @@ export default function ProfilePage() {
     <div className="profile-page">
       <header className="page-header">
         <div>
-          <p className="eyebrow">Profile</p>
-          <h1>Welcome, {user.username}</h1>
+          <p className="eyebrow">{t("profile.eyebrow")}</p>
+          <h1>{t("profile.welcome", { username: user.username })}</h1>
         </div>
       </header>
 
       <div className="profile-grid">
         <section className="panel">
-          <h2>Your details</h2>
+          <h2>{t("profile.yourDetails")}</h2>
           <form className="stack-form" onSubmit={handleSubmit}>
             <FormField
-              label="First name"
+              label={t("auth.firstName")}
               name="first_name"
               value={form.first_name}
               onChange={handleChange}
             />
             <FormField
-              label="Last name"
+              label={t("auth.lastName")}
               name="last_name"
               value={form.last_name}
               onChange={handleChange}
             />
             <FormField
-              label="Phone"
+              label={t("profile.phone")}
               name="phone"
               value={form.phone}
               onChange={handleChange}
             />
             <FormField
-              label="Bio"
+              label={t("profile.bio")}
               name="bio"
               as="textarea"
               value={form.bio}
@@ -87,25 +90,25 @@ export default function ProfilePage() {
             {message && <div className="alert alert-success">{message}</div>}
             {error && <div className="alert alert-error">{error}</div>}
             <button type="submit" className="btn btn-primary">
-              Save profile
+              {t("profile.saveProfile")}
             </button>
           </form>
         </section>
 
         <section className="panel">
-          <h2>Your registrations</h2>
+          <h2>{t("profile.yourRegistrations")}</h2>
           {registrations.length === 0 ? (
-            <p>No registrations yet.</p>
+            <p>{t("profile.noRegistrations")}</p>
           ) : (
             <ul className="registration-list">
               {registrations.map((registration) => (
                 <li key={registration.id}>
                   <div>
                     <strong>{registration.education_title}</strong>
-                    <p>{registration.status}</p>
+                    <p>{translateRegistrationStatus(t, registration.status)}</p>
                   </div>
                   <Link to={`/educations/${registration.education_slug}`} className="text-link">
-                    View
+                    {t("common.view")}
                   </Link>
                 </li>
               ))}

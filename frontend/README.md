@@ -52,6 +52,14 @@ npm run preview  # Preview production build
 | `/profile` | User profile and registrations |
 | `/admin` | Staff-only content creation |
 
+## Internationalization
+
+- Default language: Turkish (`tr`)
+- Also available: English (`en`)
+- Language switcher in the header saves your choice in `localStorage`
+- Date and time formatting follows the active language
+- API requests send `Accept-Language` so backend validation messages match the UI
+
 ## Environment
 
 | Variable | Default | Description |

@@ -1,6 +1,10 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { api } from "../api/client";
 import FormField from "../components/FormField";
+import { translateApiError, translateInterestArea } from "../utils/i18nHelpers";
+
+const interestAreaValues = ["Education", "Workshop", "Technology", "Culture", "Volunteer"];
 
 const initialForm = {
   full_name: "",
@@ -12,6 +16,7 @@ const initialForm = {
 };
 
 export default function JoinUsPage() {
+  const { t } = useTranslation();
   const [form, setForm] = useState(initialForm);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -28,41 +33,36 @@ export default function JoinUsPage() {
       setSubmitted(true);
       setForm(initialForm);
     } catch (err) {
-      setError(err.message);
+      setError(translateApiError(t, err));
     }
   }
 
   return (
     <div className="split-page">
       <section>
-        <p className="eyebrow">Join Us</p>
-        <h1>Become part of Tin Kolektif</h1>
-        <p>
-          We welcome educators, artists, technologists, and community builders who want
-          to co-create workshops, events, and open calls.
-        </p>
+        <p className="eyebrow">{t("joinUs.eyebrow")}</p>
+        <h1>{t("joinUs.title")}</h1>
+        <p>{t("joinUs.copy")}</p>
         <ul className="feature-list">
-          <li>Lead or co-host educations</li>
-          <li>Collaborate on cultural programming</li>
-          <li>Join our volunteer and mentor network</li>
+          <li>{t("joinUs.feature1")}</li>
+          <li>{t("joinUs.feature2")}</li>
+          <li>{t("joinUs.feature3")}</li>
         </ul>
       </section>
       <section className="panel">
         {submitted ? (
-          <div className="alert alert-success">
-            Thank you. Your application has been received.
-          </div>
+          <div className="alert alert-success">{t("joinUs.success")}</div>
         ) : (
           <form className="stack-form" onSubmit={handleSubmit}>
             <FormField
-              label="Full name"
+              label={t("forms.fullName")}
               name="full_name"
               value={form.full_name}
               onChange={handleChange}
               required
             />
             <FormField
-              label="Email"
+              label={t("auth.email")}
               name="email"
               type="email"
               value={form.email}
@@ -70,33 +70,30 @@ export default function JoinUsPage() {
               required
             />
             <FormField
-              label="Phone"
+              label={t("forms.phone")}
               name="phone"
               value={form.phone}
               onChange={handleChange}
             />
             <FormField
-              label="Interest area"
+              label={t("forms.interestArea")}
               name="interest_area"
               as="select"
               value={form.interest_area}
               onChange={handleChange}
-              options={[
-                { value: "Education", label: "Education" },
-                { value: "Workshop", label: "Workshop" },
-                { value: "Technology", label: "Technology" },
-                { value: "Culture", label: "Culture" },
-                { value: "Volunteer", label: "Volunteer" },
-              ]}
+              options={interestAreaValues.map((value) => ({
+                value,
+                label: translateInterestArea(t, value),
+              }))}
             />
             <FormField
-              label="Portfolio or social link"
+              label={t("forms.portfolioUrl")}
               name="portfolio_url"
               value={form.portfolio_url}
               onChange={handleChange}
             />
             <FormField
-              label="Tell us about yourself"
+              label={t("forms.aboutYou")}
               name="message"
               as="textarea"
               value={form.message}
@@ -105,7 +102,7 @@ export default function JoinUsPage() {
             />
             {error && <div className="alert alert-error">{error}</div>}
             <button type="submit" className="btn btn-primary">
-              Submit application
+              {t("joinUs.submit")}
             </button>
           </form>
         )}

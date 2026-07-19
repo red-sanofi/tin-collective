@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import FormField from "../components/FormField";
 import { useAuth } from "../context/AuthContext";
+import { translateApiError } from "../utils/i18nHelpers";
 
 export default function RegisterPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { register } = useAuth();
   const [form, setForm] = useState({
@@ -27,23 +30,23 @@ export default function RegisterPage() {
       await register(form);
       navigate("/profile");
     } catch (err) {
-      setError(err.data ? JSON.stringify(err.data) : err.message);
+      setError(translateApiError(t, err));
     }
   }
 
   return (
     <div className="auth-page panel">
-      <h1>Create account</h1>
+      <h1>{t("auth.registerTitle")}</h1>
       <form className="stack-form" onSubmit={handleSubmit}>
         <FormField
-          label="Username"
+          label={t("auth.username")}
           name="username"
           value={form.username}
           onChange={handleChange}
           required
         />
         <FormField
-          label="Email"
+          label={t("auth.email")}
           name="email"
           type="email"
           value={form.email}
@@ -51,19 +54,19 @@ export default function RegisterPage() {
           required
         />
         <FormField
-          label="First name"
+          label={t("auth.firstName")}
           name="first_name"
           value={form.first_name}
           onChange={handleChange}
         />
         <FormField
-          label="Last name"
+          label={t("auth.lastName")}
           name="last_name"
           value={form.last_name}
           onChange={handleChange}
         />
         <FormField
-          label="Password"
+          label={t("auth.password")}
           name="password"
           type="password"
           value={form.password}
@@ -71,7 +74,7 @@ export default function RegisterPage() {
           required
         />
         <FormField
-          label="Confirm password"
+          label={t("auth.confirmPassword")}
           name="password_confirm"
           type="password"
           value={form.password_confirm}
@@ -80,11 +83,11 @@ export default function RegisterPage() {
         />
         {error && <div className="alert alert-error">{error}</div>}
         <button type="submit" className="btn btn-primary">
-          Sign up
+          {t("auth.registerButton")}
         </button>
       </form>
       <p>
-        Already registered? <Link to="/login">Log in</Link>
+        {t("auth.haveAccount")} <Link to="/login">{t("nav.login")}</Link>
       </p>
     </div>
   );

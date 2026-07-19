@@ -91,6 +91,28 @@ h3 {
   gap: 1rem;
 }
 
+.language-switcher {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.language-switcher button {
+  border: none;
+  background: transparent;
+  padding: 0.45rem 0.7rem;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.language-switcher button.is-active {
+  background: var(--secondary);
+  color: white;
+}
+
 .main-nav a,
 .auth-nav a {
   font-weight: 500;

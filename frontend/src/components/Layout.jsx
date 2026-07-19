@@ -1,7 +1,10 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher";
 import { useAuth } from "../context/AuthContext";
 
 export default function Layout() {
+  const { t } = useTranslation();
   const { user, logout, isStaff } = useAuth();
 
   return (
@@ -13,24 +16,25 @@ export default function Layout() {
             <span>Kolektif</span>
           </Link>
           <nav className="main-nav">
-            <NavLink to="/educations">Educations</NavLink>
-            <NavLink to="/announcements">Announcements</NavLink>
-            <NavLink to="/join-us">Join Us</NavLink>
-            {isStaff && <NavLink to="/admin">Admin</NavLink>}
+            <NavLink to="/educations">{t("nav.educations")}</NavLink>
+            <NavLink to="/announcements">{t("nav.announcements")}</NavLink>
+            <NavLink to="/join-us">{t("nav.joinUs")}</NavLink>
+            {isStaff && <NavLink to="/admin">{t("nav.admin")}</NavLink>}
           </nav>
           <div className="auth-nav">
+            <LanguageSwitcher />
             {user ? (
               <>
                 <NavLink to="/profile">{user.username}</NavLink>
                 <button type="button" className="btn btn-ghost" onClick={logout}>
-                  Log out
+                  {t("nav.logout")}
                 </button>
               </>
             ) : (
               <>
-                <NavLink to="/login">Log in</NavLink>
+                <NavLink to="/login">{t("nav.login")}</NavLink>
                 <NavLink to="/register" className="btn btn-primary">
-                  Sign up
+                  {t("nav.signup")}
                 </NavLink>
               </>
             )}
@@ -42,7 +46,7 @@ export default function Layout() {
       </main>
       <footer className="site-footer">
         <div className="container footer-inner">
-          <p>Tin Kolektif — collective learning, culture, and creation.</p>
+          <p>{t("footer.tagline")}</p>
           <a href="https://www.instagram.com/tinkolektif/" target="_blank" rel="noreferrer">
             @tinkolektif
           </a>

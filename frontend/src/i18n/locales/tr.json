@@ -1,0 +1,159 @@
+{
+  "common": {
+    "loading": "Yükleniyor...",
+    "viewAll": "Tümünü gör",
+    "viewDetails": "Detayları gör",
+    "readMore": "Devamını oku",
+    "view": "Görüntüle",
+    "published": "Yayınlandı",
+    "open": "Açık"
+  },
+  "nav": {
+    "educations": "Eğitimler",
+    "announcements": "Duyurular",
+    "joinUs": "Bize Katıl",
+    "admin": "Yönetim",
+    "profile": "Profil",
+    "login": "Giriş yap",
+    "logout": "Çıkış yap",
+    "signup": "Kayıt ol"
+  },
+  "footer": {
+    "tagline": "Tin Kolektif — kolektif öğrenme, kültür ve üretim."
+  },
+  "language": {
+    "label": "Dil",
+    "tr": "Türkçe",
+    "en": "English"
+  },
+  "home": {
+    "eyebrow": "Kolektif öğrenme platformu",
+    "title": "Atölyeler, kültür ve açık çağrılar — birlikte.",
+    "copy": "Tin Kolektif; çikolata atölyelerinden yapay zekaya, sinema okumalarından topluluk duyurularına kadar uygulamalı eğitimler için insanları bir araya getirir.",
+    "browseEducations": "Eğitimlere göz at",
+    "joinCollective": "Kolektife katıl",
+    "instagramCommunity": "Instagram topluluğu",
+    "openRegistrations": "yaklaşan oturumlar için kayıtlar açık",
+    "upcomingEducations": "Yaklaşan eğitimler",
+    "latestAnnouncements": "Son duyurular"
+  },
+  "educations": {
+    "eyebrow": "Eğitimler",
+    "title": "Atölyelere ve öğrenme oturumlarına kayıt olun",
+    "allCategories": "Tüm kategoriler",
+    "loading": "Eğitimler yükleniyor...",
+    "back": "Eğitimlere dön",
+    "when": "Tarih",
+    "mode": "Biçim",
+    "location": "Konum",
+    "capacity": "Kapasite",
+    "register": "Kayıt ol",
+    "cancelRegistration": "Kaydı iptal et",
+    "waitlistOnly": "Yalnızca bekleme listesi",
+    "registered": "Kayıtlı",
+    "spotsLeft": "{{remaining}} kontenjan kaldı / {{capacity}}",
+    "loadingDetail": "Eğitim yükleniyor...",
+    "registrationSuccess": "Kayıt başarılı.",
+    "registrationCancelled": "Kayıt iptal edildi."
+  },
+  "announcements": {
+    "eyebrow": "Duyurular",
+    "title": "Haberler, açık çağrılar ve topluluk güncellemeleri",
+    "loading": "Duyurular yükleniyor...",
+    "back": "Duyurulara dön",
+    "loadingDetail": "Duyuru yükleniyor..."
+  },
+  "joinUs": {
+    "eyebrow": "Bize Katıl",
+    "title": "Tin Kolektif'in bir parçası olun",
+    "copy": "Atölye, etkinlik ve açık çağrıları birlikte üretmek isteyen eğitmenleri, sanatçıları, teknologları ve topluluk kurucularını arıyoruz.",
+    "feature1": "Eğitimleri yönetin veya birlikte sunun",
+    "feature2": "Kültür programlarında iş birliği yapın",
+    "feature3": "Gönüllü ve mentor ağımıza katılın",
+    "success": "Teşekkürler. Başvurunuz alındı.",
+    "submit": "Başvuruyu gönder"
+  },
+  "auth": {
+    "loginTitle": "Giriş yap",
+    "registerTitle": "Hesap oluştur",
+    "username": "Kullanıcı adı",
+    "email": "E-posta",
+    "password": "Şifre",
+    "confirmPassword": "Şifreyi onayla",
+    "firstName": "Ad",
+    "lastName": "Soyad",
+    "loginButton": "Giriş yap",
+    "registerButton": "Kayıt ol",
+    "needAccount": "Hesabınız yok mu?",
+    "haveAccount": "Zaten kayıtlı mısınız?",
+    "invalidCredentials": "Geçersiz kullanıcı adı veya şifre."
+  },
+  "profile": {
+    "eyebrow": "Profil",
+    "welcome": "Hoş geldin, {{username}}",
+    "yourDetails": "Bilgileriniz",
+    "phone": "Telefon",
+    "bio": "Biyografi",
+    "saveProfile": "Profili kaydet",
+    "updated": "Profil güncellendi.",
+    "yourRegistrations": "Kayıtlarınız",
+    "noRegistrations": "Henüz kaydınız yok."
+  },
+  "admin": {
+    "eyebrow": "Yönetim",
+    "title": "Eğitim ve duyuru oluştur",
+    "newEducation": "Yeni eğitim",
+    "newAnnouncement": "Yeni duyuru",
+    "titleField": "Başlık",
+    "summary": "Özet",
+    "description": "Açıklama",
+    "category": "Kategori",
+    "deliveryMode": "Sunum biçimi",
+    "location": "Konum",
+    "startAt": "Başlangıç",
+    "endAt": "Bitiş",
+    "capacity": "Kapasite",
+    "published": "Yayında",
+    "publishedAt": "Yayın tarihi",
+    "body": "İçerik",
+    "createEducation": "Eğitim oluştur",
+    "createAnnouncement": "Duyuru oluştur",
+    "educationCreated": "Eğitim oluşturuldu.",
+    "announcementCreated": "Duyuru oluşturuldu."
+  },
+  "forms": {
+    "fullName": "Ad soyad",
+    "phone": "Telefon",
+    "interestArea": "İlgi alanı",
+    "portfolioUrl": "Portfolyo veya sosyal medya bağlantısı",
+    "aboutYou": "Kendinizden bahsedin"
+  },
+  "categories": {
+    "Workshop": "Atölye",
+    "Technology": "Teknoloji",
+    "Culture": "Kültür"
+  },
+  "interestAreas": {
+    "Education": "Eğitim",
+    "Workshop": "Atölye",
+    "Technology": "Teknoloji",
+    "Culture": "Kültür",
+    "Volunteer": "Gönüllülük"
+  },
+  "deliveryMode": {
+    "online": "Çevrimiçi",
+    "in_person": "Yüz yüze",
+    "hybrid": "Hibrit"
+  },
+  "registrationStatus": {
+    "confirmed": "Onaylandı",
+    "cancelled": "İptal edildi",
+    "waitlist": "Bekleme listesi"
+  },
+  "errors": {
+    "requestFailed": "İstek başarısız oldu.",
+    "educationNotFound": "Eğitim bulunamadı.",
+    "alreadyRegistered": "Bu eğitime zaten kayıtlısınız.",
+    "passwordMismatch": "Şifreler eşleşmiyor."
+  }
+}

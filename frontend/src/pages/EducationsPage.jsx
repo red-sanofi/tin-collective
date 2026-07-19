@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { api } from "../api/client";
 import EducationCard from "../components/EducationCard";
+import { translateApiError } from "../utils/i18nHelpers";
+
+const categoryOptions = ["Workshop", "Technology", "Culture"];
 
 export default function EducationsPage() {
+  const { t } = useTranslation();
   const [educations, setEducations] = useState([]);
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(true);
@@ -17,30 +22,32 @@ export default function EducationsPage() {
         const data = await api.getEducations(query);
         setEducations(data.results || data);
       } catch (err) {
-        setError(err.message);
+        setError(translateApiError(t, err));
       } finally {
         setLoading(false);
       }
     }
     load();
-  }, [category]);
+  }, [category, t]);
 
   return (
     <div>
       <header className="page-header">
         <div>
-          <p className="eyebrow">Educations</p>
-          <h1>Register for workshops and learning sessions</h1>
+          <p className="eyebrow">{t("educations.eyebrow")}</p>
+          <h1>{t("educations.title")}</h1>
         </div>
         <select value={category} onChange={(event) => setCategory(event.target.value)}>
-          <option value="">All categories</option>
-          <option value="Workshop">Workshop</option>
-          <option value="Technology">Technology</option>
-          <option value="Culture">Culture</option>
+          <option value="">{t("educations.allCategories")}</option>
+          {categoryOptions.map((option) => (
+            <option key={option} value={option}>
+              {t(`categories.${option}`)}
+            </option>
+          ))}
         </select>
       </header>
 
-      {loading && <div className="loading-block">Loading educations...</div>}
+      {loading && <div className="loading-block">{t("educations.loading")}</div>}
       {error && <div className="alert alert-error">{error}</div>}
 
       <div className="card-grid">

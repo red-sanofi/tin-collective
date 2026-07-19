@@ -1,4 +1,11 @@
+import i18n from "../i18n";
+
 const API_BASE = import.meta.env.VITE_API_URL || "/api";
+
+function getLanguageHeader() {
+  const language = i18n.language || "tr";
+  return language.startsWith("en") ? "en" : "tr";
+}
 
 function getAuthHeaders() {
   const token = localStorage.getItem("access_token");
@@ -10,6 +17,7 @@ async function request(path, options = {}) {
     ...options,
     headers: {
       "Content-Type": "application/json",
+      "Accept-Language": getLanguageHeader(),
       ...getAuthHeaders(),
       ...options.headers,
     },
@@ -26,7 +34,7 @@ async function request(path, options = {}) {
   }
 
   if (!response.ok) {
-    const error = new Error(data?.detail || "Request failed");
+    const error = new Error(data?.detail || i18n.t("errors.requestFailed"));
     error.status = response.status;
     error.data = data;
     throw error;

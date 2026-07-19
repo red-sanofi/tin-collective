@@ -1,0 +1,17 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: tin-collective\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Passwords do not match."
+msgstr "Passwords do not match."
+
+msgid "Education not found."
+msgstr "Education not found."
+
+msgid "You are already registered for this education."
+msgstr "You are already registered for this education."

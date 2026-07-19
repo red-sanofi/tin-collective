@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { api } from "../api/client";
 import FormField from "../components/FormField";
+import { translateApiError } from "../utils/i18nHelpers";
 
 const emptyEducation = {
   title: "",
@@ -24,6 +26,7 @@ const emptyAnnouncement = {
 };
 
 export default function AdminPage() {
+  const { t } = useTranslation();
   const [educationForm, setEducationForm] = useState(emptyEducation);
   const [announcementForm, setAnnouncementForm] = useState(emptyAnnouncement);
   const [message, setMessage] = useState("");
@@ -56,9 +59,9 @@ export default function AdminPage() {
         end_at: educationForm.end_at || null,
       });
       setEducationForm(emptyEducation);
-      setMessage("Education created.");
+      setMessage(t("admin.educationCreated"));
     } catch (err) {
-      setError(err.data ? JSON.stringify(err.data) : err.message);
+      setError(translateApiError(t, err));
     }
   }
 
@@ -72,17 +75,23 @@ export default function AdminPage() {
         published_at: announcementForm.published_at || null,
       });
       setAnnouncementForm(emptyAnnouncement);
-      setMessage("Announcement created.");
+      setMessage(t("admin.announcementCreated"));
     } catch (err) {
-      setError(err.data ? JSON.stringify(err.data) : err.message);
+      setError(translateApiError(t, err));
     }
   }
+
+  const deliveryModeOptions = [
+    { value: "online", label: t("deliveryMode.online") },
+    { value: "in_person", label: t("deliveryMode.in_person") },
+    { value: "hybrid", label: t("deliveryMode.hybrid") },
+  ];
 
   return (
     <div>
       <header className="page-header">
-        <p className="eyebrow">Admin</p>
-        <h1>Create educations and announcements</h1>
+        <p className="eyebrow">{t("admin.eyebrow")}</p>
+        <h1>{t("admin.title")}</h1>
       </header>
 
       {message && <div className="alert alert-success">{message}</div>}
@@ -90,24 +99,24 @@ export default function AdminPage() {
 
       <div className="admin-grid">
         <section className="panel">
-          <h2>New education</h2>
+          <h2>{t("admin.newEducation")}</h2>
           <form className="stack-form" onSubmit={createEducation}>
             <FormField
-              label="Title"
+              label={t("admin.titleField")}
               name="title"
               value={educationForm.title}
               onChange={handleEducationChange}
               required
             />
             <FormField
-              label="Summary"
+              label={t("admin.summary")}
               name="summary"
               value={educationForm.summary}
               onChange={handleEducationChange}
               required
             />
             <FormField
-              label="Description"
+              label={t("admin.description")}
               name="description"
               as="textarea"
               value={educationForm.description}
@@ -115,32 +124,28 @@ export default function AdminPage() {
               required
             />
             <FormField
-              label="Category"
+              label={t("admin.category")}
               name="category"
               value={educationForm.category}
               onChange={handleEducationChange}
               required
             />
             <FormField
-              label="Delivery mode"
+              label={t("admin.deliveryMode")}
               name="delivery_mode"
               as="select"
               value={educationForm.delivery_mode}
               onChange={handleEducationChange}
-              options={[
-                { value: "online", label: "Online" },
-                { value: "in_person", label: "In person" },
-                { value: "hybrid", label: "Hybrid" },
-              ]}
+              options={deliveryModeOptions}
             />
             <FormField
-              label="Location"
+              label={t("admin.location")}
               name="location"
               value={educationForm.location}
               onChange={handleEducationChange}
             />
             <FormField
-              label="Start at"
+              label={t("admin.startAt")}
               name="start_at"
               type="datetime-local"
               value={educationForm.start_at}
@@ -148,14 +153,14 @@ export default function AdminPage() {
               required
             />
             <FormField
-              label="End at"
+              label={t("admin.endAt")}
               name="end_at"
               type="datetime-local"
               value={educationForm.end_at}
               onChange={handleEducationChange}
             />
             <FormField
-              label="Capacity"
+              label={t("admin.capacity")}
               name="capacity"
               type="number"
               value={educationForm.capacity}
@@ -169,33 +174,33 @@ export default function AdminPage() {
                 checked={educationForm.is_published}
                 onChange={handleEducationChange}
               />
-              Published
+              {t("admin.published")}
             </label>
             <button type="submit" className="btn btn-primary">
-              Create education
+              {t("admin.createEducation")}
             </button>
           </form>
         </section>
 
         <section className="panel">
-          <h2>New announcement</h2>
+          <h2>{t("admin.newAnnouncement")}</h2>
           <form className="stack-form" onSubmit={createAnnouncement}>
             <FormField
-              label="Title"
+              label={t("admin.titleField")}
               name="title"
               value={announcementForm.title}
               onChange={handleAnnouncementChange}
               required
             />
             <FormField
-              label="Summary"
+              label={t("admin.summary")}
               name="summary"
               value={announcementForm.summary}
               onChange={handleAnnouncementChange}
               required
             />
             <FormField
-              label="Body"
+              label={t("admin.body")}
               name="body"
               as="textarea"
               value={announcementForm.body}
@@ -203,7 +208,7 @@ export default function AdminPage() {
               required
             />
             <FormField
-              label="Published at"
+              label={t("admin.publishedAt")}
               name="published_at"
               type="datetime-local"
               value={announcementForm.published_at}
@@ -216,10 +221,10 @@ export default function AdminPage() {
                 checked={announcementForm.is_published}
                 onChange={handleAnnouncementChange}
               />
-              Published
+              {t("admin.published")}
             </label>
             <button type="submit" className="btn btn-primary">
-              Create announcement
+              {t("admin.createAnnouncement")}
             </button>
           </form>
         </section>

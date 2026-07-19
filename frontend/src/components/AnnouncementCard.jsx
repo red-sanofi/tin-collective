@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { formatDate } from "../utils/i18nHelpers";
 
 export default function AnnouncementCard({ announcement }) {
-  const published = announcement.published_at
-    ? new Date(announcement.published_at).toLocaleDateString("tr-TR")
-    : new Date(announcement.created_at).toLocaleDateString("tr-TR");
+  const { t } = useTranslation();
+  const published = formatDate(announcement.published_at || announcement.created_at, {
+    dateStyle: "medium",
+  });
 
   return (
     <article className="card announcement-card">
@@ -11,7 +14,7 @@ export default function AnnouncementCard({ announcement }) {
       <h3>{announcement.title}</h3>
       <p>{announcement.summary}</p>
       <Link to={`/announcements/${announcement.slug}`} className="text-link">
-        Read more
+        {t("common.readMore")}
       </Link>
     </article>
   );

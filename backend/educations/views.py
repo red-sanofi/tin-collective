@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as _
 from rest_framework import generics, permissions, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
@@ -63,7 +64,7 @@ class EducationRegisterView(APIView):
         try:
             education = Education.objects.get(slug=slug, is_published=True)
         except Education.DoesNotExist as exc:
-            raise ValidationError({"detail": "Education not found."}) from exc
+            raise ValidationError({"detail": _("Education not found.")}) from exc
 
         registration, created = EducationRegistration.objects.get_or_create(
             user=request.user,
@@ -73,7 +74,7 @@ class EducationRegisterView(APIView):
 
         if not created and registration.status == EducationRegistration.Status.CONFIRMED:
             return Response(
-                {"detail": "You are already registered for this education."},
+                {"detail": _("You are already registered for this education.")},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -96,7 +97,7 @@ class EducationRegisterView(APIView):
         try:
             education = Education.objects.get(slug=slug)
         except Education.DoesNotExist as exc:
-            raise ValidationError({"detail": "Education not found."}) from exc
+            raise ValidationError({"detail": _("Education not found.")}) from exc
 
         registration = EducationRegistration.objects.filter(
             user=request.user,

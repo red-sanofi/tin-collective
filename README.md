@@ -116,6 +116,22 @@ On first startup the backend will:
 - Announcements page
 - Join Us application form
 - Django admin at `/admin`
+- Turkish by default with English available via the header language switcher
+
+## Languages
+
+- Default UI language: **Turkish (`tr`)**
+- Also available: **English (`en`)**
+- Switch language from the **TR / EN** toggle in the site header
+- Your choice is saved in the browser
+- API error messages follow the selected language via the `Accept-Language` header
+
+To add another language later:
+
+1. Add a new JSON file under `frontend/src/i18n/locales/`
+2. Register it in `frontend/src/i18n/index.js`
+3. Add Django translations under `backend/locale/<lang>/LC_MESSAGES/django.po`
+4. Run `python manage.py compilemessages`
 
 ## Stack
 
