@@ -6,6 +6,7 @@ import AnnouncementCard from "../../components/AnnouncementCard";
 import ArtGrid from "../../components/ArtGrid";
 import EducationCard from "../../components/EducationCard";
 import FragmentTitle from "../../components/FragmentTitle";
+import SocialFeed from "../../components/SocialFeed";
 
 export default function HomePagePoster() {
   const { t } = useTranslation();
@@ -98,6 +99,8 @@ export default function HomePagePoster() {
           ))}
         </ArtGrid>
       </section>
+
+      <SocialFeed className="section-chaos" />
     </div>
   );
 }

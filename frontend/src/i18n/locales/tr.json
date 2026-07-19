@@ -70,7 +70,9 @@
     "collageAi": "AI",
     "collageWorkshop": "ATÖLYE",
     "upcomingEducations": "Yaklaşan eğitimler",
-    "latestAnnouncements": "Son duyurular"
+    "latestAnnouncements": "Son duyurular",
+    "socialFeedTitle": "Sosyal medyadan",
+    "socialFeedEmpty": "Henüz sosyal medya paylaşımı yok."
   },
   "educations": {
     "eyebrow": "Eğitimler",
@@ -141,7 +143,21 @@
     "saveProfile": "Profili kaydet",
     "updated": "Profil güncellendi.",
     "yourRegistrations": "Kayıtlarınız",
-    "noRegistrations": "Henüz kaydınız yok."
+    "share_social_in_feed": "Profil paylaşımlarını ana sayfa akışında göster",
+    "socialLinks": "Sosyal medya bağlantıları",
+    "instagram": "Instagram",
+    "twitter": "Twitter / X",
+    "youtube": "YouTube",
+    "tiktok": "TikTok",
+    "website": "Web sitesi",
+    "socialFeed": "Sosyal medya akışı",
+    "socialFeedHelp": "Paylaşım URL'si ekleyin (Instagram, X, YouTube veya TikTok). Ana sayfada görünmesi için paylaşım kutusunu işaretleyin.",
+    "postUrl": "Paylaşım URL'si",
+    "addPost": "Paylaşım ekle",
+    "postAdded": "Paylaşım akışa eklendi.",
+    "postRemoved": "Paylaşım kaldırıldı.",
+    "noSocialPosts": "Henüz paylaşım eklemediniz.",
+    "removePost": "Kaldır"
   },
   "admin": {
     "eyebrow": "Yönetim",

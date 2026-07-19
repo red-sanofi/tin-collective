@@ -84,4 +84,10 @@ export const api = {
     request("/join/", { method: "POST", body: JSON.stringify(payload) }),
 
   getOAuthProviders: () => request("/auth/oauth/providers/"),
+
+  getSocialFeed: () => request("/social/feed/"),
+  getMySocialPosts: () => request("/social/mine/"),
+  addSocialPost: (postUrl) =>
+    request("/social/posts/", { method: "POST", body: JSON.stringify({ post_url: postUrl }) }),
+  deleteSocialPost: (id) => request(`/social/posts/${id}/`, { method: "DELETE" }),
 };

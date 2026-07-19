@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { api } from "../../api/client";
 import ArtisanWorkshopCard from "../../components/ArtisanWorkshopCard";
+import SocialFeed from "../../components/SocialFeed";
 import { useAuth } from "../../context/AuthContext";
 
 export default function HomePageArtisan() {
@@ -86,6 +87,8 @@ export default function HomePageArtisan() {
           </div>
         </section>
       )}
+
+      <SocialFeed className="artisan-section" />
     </div>
   );
 }

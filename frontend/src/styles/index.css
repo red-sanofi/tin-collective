@@ -1338,6 +1338,141 @@ h3 {
   }
 }
 
+.social-feed {
+  margin-bottom: 4rem;
+}
+
+.social-feed-head h2 {
+  margin: 0.35rem 0 0;
+}
+
+.social-feed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  gap: 1rem;
+}
+
+.social-feed-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  border: 3px solid var(--ink);
+  background: var(--surface-strong);
+  box-shadow: 8px 8px 0 rgba(16, 16, 16, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.social-feed-card:hover {
+  transform: translateY(-4px);
+}
+
+.social-feed-media {
+  aspect-ratio: 1 / 1;
+  background: rgba(16, 16, 16, 0.06);
+}
+
+.social-feed-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.social-feed-fallback {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.social-feed-body {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.9rem 1rem 1.1rem;
+}
+
+.social-feed-platform {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.social-feed-body p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.social-link-chip {
+  padding: 0.45rem 0.75rem;
+  border: 2px solid var(--ink);
+  background: white;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.profile-social-links {
+  margin-top: -1rem;
+}
+
+.panel-copy {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.92rem;
+}
+
+.social-post-list,
+.social-post-actions {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.social-post-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+  padding: 0.85rem 0;
+  border-top: 1px solid rgba(16, 16, 16, 0.1);
+}
+
+.social-post-actions {
+  justify-items: end;
+}
+
+.theme-artisan .social-feed-card {
+  border-width: 1px;
+  box-shadow: 0 10px 24px rgba(31, 26, 23, 0.08);
+}
+
+.theme-artisan .social-link-chip {
+  border-color: rgba(31, 26, 23, 0.18);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track,
   .orbit-ring,

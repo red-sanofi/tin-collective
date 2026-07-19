@@ -27,12 +27,18 @@ class Command(BaseCommand):
 
         demo_user, created = User.objects.get_or_create(
             username="demo",
-            defaults={"email": "demo@tinkolektif.local"},
+            defaults={
+                "email": "demo@tinkolektif.local",
+                "instagram": "https://www.instagram.com/tinkolektif/",
+            },
         )
         if created:
             demo_user.set_password("demo12345")
             demo_user.save()
             self.stdout.write(self.style.SUCCESS("Created demo user (demo / demo12345)"))
+        elif not demo_user.instagram:
+            demo_user.instagram = "https://www.instagram.com/tinkolektif/"
+            demo_user.save(update_fields=["instagram"])
 
         now = timezone.now()
 
@@ -114,5 +120,45 @@ class Command(BaseCommand):
             )
             if created:
                 self.stdout.write(f"Created announcement: {announcement.title}")
+
+        from social.models import SocialPost
+
+        site_posts = [
+            {
+                "platform": SocialPost.Platform.INSTAGRAM,
+                "post_url": "https://www.instagram.com/tinkolektif/",
+                "external_id": "tinkolektif-profile",
+                "caption": "Tin Kolektif — atölyeler, eğitimler ve topluluk.",
+                "image_url": "/images/artisan-hero.png",
+                "author_name": "tinkolektif",
+                "published_at": now,
+            },
+            {
+                "platform": SocialPost.Platform.INSTAGRAM,
+                "post_url": "https://www.instagram.com/p/tinkolektif-workshop-1/",
+                "external_id": "demo-workshop-1",
+                "caption": "Seramik atölyesinden kareler.",
+                "image_url": "/images/artisan-hero.png",
+                "author_name": "tinkolektif",
+                "published_at": now - timezone.timedelta(days=1),
+            },
+            {
+                "platform": SocialPost.Platform.INSTAGRAM,
+                "post_url": "https://www.instagram.com/p/tinkolektif-workshop-2/",
+                "external_id": "demo-workshop-2",
+                "caption": "Yeni eğitim duyuruları yayında.",
+                "image_url": "/images/artisan-hero.png",
+                "author_name": "tinkolektif",
+                "published_at": now - timezone.timedelta(days=2),
+            },
+        ]
+
+        for item in site_posts:
+            post, created = SocialPost.objects.update_or_create(
+                post_url=item["post_url"],
+                defaults={**item, "user": None},
+            )
+            if created:
+                self.stdout.write(f"Created social post: {post.caption[:40]}")
 
         self.stdout.write(self.style.SUCCESS("Seed data ready."))

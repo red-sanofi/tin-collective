@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "educations",
     "announcements",
     "joinus",
+    "social",
 ]
 
 SITE_ID = 1

@@ -70,7 +70,9 @@
     "collageAi": "AI",
     "collageWorkshop": "WORKSHOP",
     "upcomingEducations": "Upcoming educations",
-    "latestAnnouncements": "Latest announcements"
+    "latestAnnouncements": "Latest announcements",
+    "socialFeedTitle": "From social media",
+    "socialFeedEmpty": "No social media posts yet."
   },
   "educations": {
     "eyebrow": "Educations",
@@ -141,7 +143,22 @@
     "saveProfile": "Save profile",
     "updated": "Profile updated.",
     "yourRegistrations": "Your registrations",
-    "noRegistrations": "No registrations yet."
+    "noRegistrations": "No registrations yet.",
+    "share_social_in_feed": "Show my shared posts on the homepage feed",
+    "socialLinks": "Social media links",
+    "instagram": "Instagram",
+    "twitter": "Twitter / X",
+    "youtube": "YouTube",
+    "tiktok": "TikTok",
+    "website": "Website",
+    "socialFeed": "Social media feed",
+    "socialFeedHelp": "Add a post URL from Instagram, X, YouTube, or TikTok. Enable sharing to show it on the homepage feed.",
+    "postUrl": "Post URL",
+    "addPost": "Add post",
+    "postAdded": "Post added to the feed.",
+    "postRemoved": "Post removed.",
+    "noSocialPosts": "You have not added any posts yet.",
+    "removePost": "Remove"
   },
   "admin": {
     "eyebrow": "Admin",

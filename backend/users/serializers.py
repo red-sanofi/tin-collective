@@ -16,10 +16,36 @@ class UserSerializer(serializers.ModelSerializer):
             "last_name",
             "bio",
             "phone",
+            "instagram",
+            "twitter",
+            "youtube",
+            "tiktok",
+            "website",
+            "share_social_in_feed",
             "is_staff",
             "date_joined",
         )
         read_only_fields = ("id", "is_staff", "date_joined")
+
+    def validate_instagram(self, value):
+        from social.services import normalize_social_value
+
+        return normalize_social_value(value, "instagram")
+
+    def validate_twitter(self, value):
+        from social.services import normalize_social_value
+
+        return normalize_social_value(value, "twitter")
+
+    def validate_youtube(self, value):
+        from social.services import normalize_social_value
+
+        return normalize_social_value(value, "youtube")
+
+    def validate_tiktok(self, value):
+        from social.services import normalize_social_value
+
+        return normalize_social_value(value, "tiktok")
 
 
 class RegisterSerializer(serializers.ModelSerializer):

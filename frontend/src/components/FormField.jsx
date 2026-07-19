@@ -8,6 +8,7 @@ export default function FormField({
   as = "input",
   rows = 4,
   options = [],
+  placeholder,
 }) {
   return (
     <label className="form-field">
@@ -19,6 +20,7 @@ export default function FormField({
           value={value}
           onChange={onChange}
           required={required}
+          placeholder={placeholder}
         />
       ) : as === "select" ? (
         <select name={name} value={value} onChange={onChange} required={required}>
@@ -35,6 +37,7 @@ export default function FormField({
           value={value}
           onChange={onChange}
           required={required}
+          placeholder={placeholder}
         />
       )}
     </label>
