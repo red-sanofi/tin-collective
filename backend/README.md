@@ -74,6 +74,9 @@ Default seeded admin:
 |--------|------|--------|
 | POST | `/api/auth/register/` | Public |
 | POST | `/api/auth/login/` | Public |
+| GET | `/api/auth/oauth/providers/` | Public |
+| GET | `/api/auth/social/{provider}/login/` | Public (starts OAuth) |
+| GET | `/api/auth/oauth/callback/` | OAuth JWT handoff |
 | GET | `/api/auth/me/` | Authenticated |
 | GET/POST | `/api/educations/` | Read public, write staff |
 | POST/DELETE | `/api/educations/{slug}/register/` | Authenticated |

@@ -111,6 +111,7 @@ On first startup the backend will:
 ## Features (v1)
 
 - User registration, login, and profile management
+- **Google & GitHub OAuth login** (optional, via env credentials)
 - Public education listings with registration and cancellation
 - Admin/staff creation of educations and announcements
 - Announcements page
@@ -132,6 +133,45 @@ To add another language later:
 2. Register it in `frontend/src/i18n/index.js`
 3. Add Django translations under `backend/locale/<lang>/LC_MESSAGES/django.po`
 4. Run `python manage.py compilemessages`
+
+## OAuth login (Google & GitHub)
+
+Social login is optional. Without credentials, the app falls back to username/password only.
+
+### 1. Copy env vars into `.env`
+
+```bash
+GOOGLE_CLIENT_ID=...
+GOOGLE_CLIENT_SECRET=...
+GITHUB_CLIENT_ID=...
+GITHUB_CLIENT_SECRET=...
+FRONTEND_URL=http://localhost:5173
+BACKEND_PUBLIC_URL=http://localhost:8000
+```
+
+### 2. Google Cloud Console
+
+1. Create an OAuth client (Web application)
+2. **Authorized redirect URI:**
+   `http://localhost:8000/api/auth/social/google/login/callback/`
+3. Paste client ID/secret into `.env`
+
+### 3. GitHub Developer Settings
+
+1. New OAuth App
+2. **Authorization callback URL:**
+   `http://localhost:8000/api/auth/social/github/login/callback/`
+3. Paste client ID/secret into `.env`
+
+### 4. Restart backend
+
+```bash
+docker compose up --build -d backend
+```
+
+OAuth buttons appear on **Login** and **Register** when providers are configured.
+
+Flow: provider → Django session → JWT issued → redirect to `/auth/callback` → profile.
 
 ## Stack
 

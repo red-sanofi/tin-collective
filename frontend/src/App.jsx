@@ -8,6 +8,7 @@ import EducationDetailPage from "./pages/EducationDetailPage";
 import EducationsPage from "./pages/EducationsPage";
 import HomePage from "./pages/HomePage";
 import JoinUsPage from "./pages/JoinUsPage";
+import AuthCallbackPage from "./pages/AuthCallbackPage";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
 import RegisterPage from "./pages/RegisterPage";
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="join-us" element={<JoinUsPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
+        <Route path="auth/callback" element={<AuthCallbackPage />} />
         <Route
           path="profile"
           element={

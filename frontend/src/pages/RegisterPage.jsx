@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import FormField from "../components/FormField";
+import OAuthButtons from "../components/OAuthButtons";
 import { useAuth } from "../context/AuthContext";
 import { translateApiError } from "../utils/i18nHelpers";
 
@@ -86,6 +87,7 @@ export default function RegisterPage() {
           {t("auth.registerButton")}
         </button>
       </form>
+      <OAuthButtons />
       <p>
         {t("auth.haveAccount")} <Link to="/login">{t("nav.login")}</Link>
       </p>

@@ -88,7 +88,14 @@
     "registerButton": "Kayıt ol",
     "needAccount": "Hesabınız yok mu?",
     "haveAccount": "Zaten kayıtlı mısınız?",
-    "invalidCredentials": "Geçersiz kullanıcı adı veya şifre."
+    "invalidCredentials": "Geçersiz kullanıcı adı veya şifre.",
+    "orContinueWith": "veya şununla devam et",
+    "oauthFailed": "Sosyal giriş başarısız oldu. Lütfen tekrar deneyin.",
+    "oauthCompleting": "Giriş tamamlanıyor...",
+    "oauth": {
+      "google": "Google ile devam et",
+      "github": "GitHub ile devam et"
+    }
   },
   "profile": {
     "eyebrow": "Profil",

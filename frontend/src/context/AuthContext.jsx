@@ -57,6 +57,14 @@ export function AuthProvider({ children }) {
     return login({ username: payload.username, password: payload.password });
   }
 
+  async function completeOAuthLogin(access, refresh) {
+    localStorage.setItem("access_token", access);
+    localStorage.setItem("refresh_token", refresh);
+    const profile = await api.me();
+    setUser(profile);
+    return profile;
+  }
+
   function logout() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
@@ -69,6 +77,7 @@ export function AuthProvider({ children }) {
       loading,
       login,
       register,
+      completeOAuthLogin,
       logout,
       refreshUser: loadUser,
       isStaff: Boolean(user?.is_staff),

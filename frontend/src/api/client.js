@@ -82,4 +82,6 @@ export const api = {
 
   submitJoinApplication: (payload) =>
     request("/join/", { method: "POST", body: JSON.stringify(payload) }),
+
+  getOAuthProviders: () => request("/auth/oauth/providers/"),
 };
