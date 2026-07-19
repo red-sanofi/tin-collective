@@ -227,6 +227,24 @@ Use PowerShell instead:
 
 Or run commands from **Git Bash**, which includes `make` in many installations.
 
+### `DisallowedHost` on server IP or domain
+
+Django blocks requests when the host is not listed in `DJANGO_ALLOWED_HOSTS`. On your server `.env`, add your public IP or domain:
+
+```bash
+DJANGO_ALLOWED_HOSTS=157.230.2.58,localhost,127.0.0.1,backend
+CORS_ALLOWED_ORIGINS=http://157.230.2.58:5173
+FRONTEND_URL=http://157.230.2.58:5173
+BACKEND_PUBLIC_URL=http://157.230.2.58:8000
+SITE_DOMAIN=157.230.2.58:8000
+```
+
+Then restart:
+
+```bash
+docker compose up --build -d backend
+```
+
 ### Reset everything
 
 ```bash
