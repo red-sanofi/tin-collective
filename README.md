@@ -206,6 +206,22 @@ make down
 make build
 ```
 
+### Missing frontend packages (for example `react-i18next`)
+
+This usually means the frontend `node_modules` volume is stale after a `git pull`. Pull latest code, recreate the frontend container, and start again:
+
+```bash
+git pull
+docker compose up --build -d --force-recreate frontend
+```
+
+Or restart the whole stack:
+
+```bash
+make down
+make build
+```
+
 ## API overview
 
 | Endpoint | Description |
