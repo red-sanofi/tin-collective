@@ -26,6 +26,36 @@
     "tr": "Türkçe",
     "en": "English"
   },
+  "themes": {
+    "button": "Theme",
+    "panelTitle": "Choose appearance",
+    "panelCopy": "Switch the site theme instantly, similar to WordPress.",
+    "active": "Active",
+    "menuToggle": "Open menu",
+    "closeMenu": "Close menu",
+    "poster": {
+      "name": "Poster Collective",
+      "description": "Bold colors, collage typography, and experimental poster layout."
+    },
+    "artisan": {
+      "name": "Artisan Workshop",
+      "description": "Large hero image, calm typography, and workshop cards.",
+      "heroAlt": "Artisans working in a ceramics workshop",
+      "heroKicker": "Artist and craft cooperative in Adana",
+      "heroTitle": "Tin Kolektif",
+      "heroSubtitle": "Workshops, educations, and community announcements — brought together by hand.",
+      "memberLogin": "Member login",
+      "memberProfile": "My profile",
+      "explore": "Explore",
+      "workshopsTitle": "Workshops & educations: new announcements",
+      "announcementsTitle": "Community announcements"
+    },
+    "artisanNav": {
+      "about": "About",
+      "workshops": "Workshops",
+      "gallery": "Gallery"
+    }
+  },
   "home": {
     "eyebrow": "Collective learning platform",
     "title": "Workshops, culture, and open calls — together.",
@@ -45,6 +75,7 @@
   "educations": {
     "eyebrow": "Educations",
     "title": "Register for workshops and learning sessions",
+    "subtitle": "Browse upcoming sessions, reserve your spot, and learn with the collective.",
     "allCategories": "All categories",
     "loading": "Loading educations...",
     "back": "Back to educations",
@@ -64,6 +95,7 @@
   "announcements": {
     "eyebrow": "Announcements",
     "title": "News, open calls, and community updates",
+    "subtitle": "Events, announcements, and collective news — all in one place.",
     "loading": "Loading announcements...",
     "back": "Back to announcements",
     "loadingDetail": "Loading announcement..."

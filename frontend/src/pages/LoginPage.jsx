@@ -28,8 +28,9 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="auth-page panel auth-panel-chaos">
-      <h1>{t("auth.loginTitle")}</h1>
+    <div className="page-readable auth-page">
+      <div className="panel auth-panel">
+        <h1>{t("auth.loginTitle")}</h1>
       <form className="stack-form" onSubmit={handleSubmit}>
         <FormField
           label={t("auth.username")}
@@ -55,6 +56,7 @@ export default function LoginPage() {
       <p>
         {t("auth.needAccount")} <Link to="/register">{t("nav.signup")}</Link>
       </p>
+      </div>
     </div>
   );
 }

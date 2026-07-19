@@ -3,18 +3,16 @@ import { useTranslation } from "react-i18next";
 import { formatDate } from "../utils/i18nHelpers";
 
 const tones = ["blue", "pink", "yellow", "red"];
-const scatterClasses = ["stack-0", "stack-1", "stack-2"];
 
-export default function AnnouncementCard({ announcement, tone = 0, scatter = 0 }) {
+export default function AnnouncementCard({ announcement, tone = 0 }) {
   const { t } = useTranslation();
   const published = formatDate(announcement.published_at || announcement.created_at, {
     dateStyle: "medium",
   });
   const toneClass = tones[tone % tones.length];
-  const scatterClass = scatterClasses[scatter % scatterClasses.length];
 
   return (
-    <article className={`card announcement-card card-tone-${toneClass} ${scatterClass}`}>
+    <article className={`card announcement-card card-tone-${toneClass}`}>
       <div className="card-tear" />
       <p className="card-date">{published}</p>
       <h3>{announcement.title}</h3>

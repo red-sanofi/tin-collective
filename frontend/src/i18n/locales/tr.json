@@ -26,6 +26,36 @@
     "tr": "Türkçe",
     "en": "English"
   },
+  "themes": {
+    "button": "Tema",
+    "panelTitle": "Görünüm seç",
+    "panelCopy": "WordPress'teki gibi site temasını anında değiştirin.",
+    "active": "Aktif",
+    "menuToggle": "Menüyü aç",
+    "closeMenu": "Menüyü kapat",
+    "poster": {
+      "name": "Poster Kolektif",
+      "description": "Cesur renkler, kolaj tipografi ve deneysel poster düzeni."
+    },
+    "artisan": {
+      "name": "Zanaat Atölyesi",
+      "description": "Büyük hero görseli, sakin tipografi ve atölye kartları.",
+      "heroAlt": "Seramik atölyesinde çalışan zanaatkarlar",
+      "heroKicker": "Adana'daki sanatçı ve zanaatkar kooperatifi",
+      "heroTitle": "Tin Kolektif",
+      "heroSubtitle": "Atölyeler, eğitimler ve topluluk duyuruları — el emeğiyle bir araya geliyoruz.",
+      "memberLogin": "Üyelik girişi",
+      "memberProfile": "Profilim",
+      "explore": "Keşfet",
+      "workshopsTitle": "Atölyeler & eğitimler: yeni duyurular",
+      "announcementsTitle": "Topluluk duyuruları"
+    },
+    "artisanNav": {
+      "about": "Hakkımızda",
+      "workshops": "Atölyeler",
+      "gallery": "Galeri"
+    }
+  },
   "home": {
     "eyebrow": "Kolektif öğrenme platformu",
     "title": "Atölyeler, kültür ve açık çağrılar — birlikte.",
@@ -45,6 +75,7 @@
   "educations": {
     "eyebrow": "Eğitimler",
     "title": "Atölyelere ve öğrenme oturumlarına kayıt olun",
+    "subtitle": "Yaklaşan oturumları keşfedin, yerinizi ayırtın ve toplulukla birlikte öğrenin.",
     "allCategories": "Tüm kategoriler",
     "loading": "Eğitimler yükleniyor...",
     "back": "Eğitimlere dön",
@@ -64,6 +95,7 @@
   "announcements": {
     "eyebrow": "Duyurular",
     "title": "Haberler, açık çağrılar ve topluluk güncellemeleri",
+    "subtitle": "Etkinlikler, duyurular ve kolektiften haberler — hepsi tek yerde.",
     "loading": "Duyurular yükleniyor...",
     "back": "Duyurulara dön",
     "loadingDetail": "Duyuru yükleniyor..."

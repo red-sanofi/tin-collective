@@ -1,9 +1,9 @@
 const fragmentStyles = [
-  "fragment-a",
-  "fragment-b",
-  "fragment-c",
-  "fragment-d",
-  "fragment-e",
+  "fragment-chip-a",
+  "fragment-chip-b",
+  "fragment-chip-c",
+  "fragment-chip-d",
+  "fragment-chip-e",
 ];
 
 export default function FragmentTitle({ fragments }) {
@@ -12,7 +12,7 @@ export default function FragmentTitle({ fragments }) {
       {fragments.map((word, index) => (
         <span
           key={`${word}-${index}`}
-          className={`fragment-word ${fragmentStyles[index % fragmentStyles.length]}`}
+          className={`fragment-chip ${fragmentStyles[index % fragmentStyles.length]}`}
         >
           {word}
         </span>

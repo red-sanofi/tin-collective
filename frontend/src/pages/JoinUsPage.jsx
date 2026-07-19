@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { api } from "../api/client";
 import FormField from "../components/FormField";
+import PageHero from "../components/PageHero";
 import { translateApiError, translateInterestArea } from "../utils/i18nHelpers";
 
 const interestAreaValues = ["Education", "Workshop", "Technology", "Culture", "Volunteer"];
@@ -38,11 +39,14 @@ export default function JoinUsPage() {
   }
 
   return (
-    <div className="page-chaos split-page split-chaos">
-      <section>
-        <p className="eyebrow">{t("joinUs.eyebrow")}</p>
-        <h1>{t("joinUs.title")}</h1>
-        <p>{t("joinUs.copy")}</p>
+    <div className="page-readable split-page">
+      <PageHero
+        label={t("joinUs.eyebrow")}
+        title={t("joinUs.title")}
+        subtitle={t("joinUs.copy")}
+        tone="pink"
+      />
+      <section className="join-features">
         <ul className="feature-list">
           <li>{t("joinUs.feature1")}</li>
           <li>{t("joinUs.feature2")}</li>

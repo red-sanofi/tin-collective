@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { api } from "../api/client";
 import FormField from "../components/FormField";
+import PageHero from "../components/PageHero";
 import { useAuth } from "../context/AuthContext";
 import { translateApiError, translateRegistrationStatus } from "../utils/i18nHelpers";
 
@@ -50,13 +51,12 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="page-chaos profile-page">
-      <header className="page-header">
-        <div>
-          <p className="eyebrow">{t("profile.eyebrow")}</p>
-          <h1>{t("profile.welcome", { username: user.username })}</h1>
-        </div>
-      </header>
+    <div className="page-readable profile-page">
+      <PageHero
+        label={t("profile.eyebrow")}
+        title={t("profile.welcome", { username: user.username })}
+        tone="red"
+      />
 
       <div className="profile-grid">
         <section className="panel">

@@ -66,7 +66,7 @@ export default function EducationDetailPage() {
   });
 
   return (
-    <article className="detail-page detail-magazine">
+    <article className="detail-page detail-readable">
       <Link to="/educations" className="text-link">
         {t("educations.back")}
       </Link>

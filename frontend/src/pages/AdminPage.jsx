@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { api } from "../api/client";
 import FormField from "../components/FormField";
+import PageHero from "../components/PageHero";
 import { translateApiError } from "../utils/i18nHelpers";
 
 const emptyEducation = {
@@ -88,11 +89,8 @@ export default function AdminPage() {
   ];
 
   return (
-    <div className="page-chaos">
-      <header className="page-header">
-        <p className="eyebrow">{t("admin.eyebrow")}</p>
-        <h1>{t("admin.title")}</h1>
-      </header>
+    <div className="page-readable">
+      <PageHero label={t("admin.eyebrow")} title={t("admin.title")} tone="yellow" />
 
       {message && <div className="alert alert-success">{message}</div>}
       {error && <div className="alert alert-error">{error}</div>}
