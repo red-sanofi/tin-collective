@@ -21,7 +21,10 @@ export default function ProfilePage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    api.myRegistrations().then(setRegistrations).catch(console.error);
+    api
+      .myRegistrations()
+      .then((data) => setRegistrations(data.results || data))
+      .catch(console.error);
   }, []);
 
   useEffect(() => {
