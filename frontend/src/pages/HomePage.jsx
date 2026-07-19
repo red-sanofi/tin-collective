@@ -49,15 +49,15 @@ export default function HomePage() {
             <span>{t("home.instagramCommunity")}</span>
           </div>
           <div className="orbit-card orbit-blue">
-            <strong>SINEMA</strong>
+            <strong>{t("home.collageSinema")}</strong>
           </div>
           <div className="orbit-card orbit-yellow">
             <strong>{t("common.open")}</strong>
             <span>{t("home.openRegistrations")}</span>
           </div>
           <div className="orbit-card orbit-pink">
-            <strong>AI</strong>
-            <span>WORKSHOP</span>
+            <strong>{t("home.collageAi")}</strong>
+            <span>{t("home.collageWorkshop")}</span>
           </div>
           <div className="orbit-ring" />
         </div>
