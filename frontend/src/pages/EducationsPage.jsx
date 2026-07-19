@@ -51,8 +51,8 @@ export default function EducationsPage() {
       {error && <div className="alert alert-error">{error}</div>}
 
       <div className="card-grid">
-        {educations.map((education) => (
-          <EducationCard key={education.id} education={education} />
+        {educations.map((education, index) => (
+          <EducationCard key={education.id} education={education} tone={index % 4} />
         ))}
       </div>
     </div>

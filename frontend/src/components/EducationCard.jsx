@@ -6,15 +6,19 @@ import {
   translateDeliveryMode,
 } from "../utils/i18nHelpers";
 
-export default function EducationCard({ education }) {
+const tones = ["red", "blue", "yellow", "pink"];
+
+export default function EducationCard({ education, tone = 0 }) {
   const { t } = useTranslation();
   const startDate = formatDateTime(education.start_at, {
     dateStyle: "medium",
     timeStyle: "short",
   });
+  const toneClass = tones[tone % tones.length];
 
   return (
-    <article className="card education-card">
+    <article className={`card education-card card-tone-${toneClass}`}>
+      <div className="card-topline" />
       <div className="card-tag">{translateCategory(t, education.category)}</div>
       <h3>{education.title}</h3>
       <p>{education.summary}</p>

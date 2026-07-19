@@ -24,10 +24,12 @@ export default function HomePage() {
 
   return (
     <div className="home-page">
-      <section className="hero">
-        <div>
+      <section className="hero poster-hero">
+        <div className="hero-content">
           <p className="eyebrow">{t("home.eyebrow")}</p>
-          <h1>{t("home.title")}</h1>
+          <h1>
+            <span className="hero-line">{t("home.title")}</span>
+          </h1>
           <p className="hero-copy">{t("home.copy")}</p>
           <div className="hero-actions">
             <Link to="/educations" className="btn btn-primary">
@@ -38,42 +40,55 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-        <div className="hero-panel">
-          <div className="hero-stat">
-            <strong>944+</strong>
-            <span>{t("home.instagramCommunity")}</span>
+        <div className="hero-collage" aria-hidden="true">
+          <div className="collage-block collage-red">
+            <span>944+</span>
+            <small>{t("home.instagramCommunity")}</small>
           </div>
-          <div className="hero-stat">
-            <strong>{t("common.open")}</strong>
-            <span>{t("home.openRegistrations")}</span>
+          <div className="collage-block collage-blue">
+            <span>SINEMA</span>
+          </div>
+          <div className="collage-block collage-yellow">
+            <span>{t("common.open")}</span>
+            <small>{t("home.openRegistrations")}</small>
+          </div>
+          <div className="collage-block collage-pink">
+            <span>AI</span>
+            <small>WORKSHOP</small>
           </div>
         </div>
       </section>
 
       <section className="section-block">
         <div className="section-heading">
-          <h2>{t("home.upcomingEducations")}</h2>
+          <div>
+            <p className="eyebrow">{t("educations.eyebrow")}</p>
+            <h2>{t("home.upcomingEducations")}</h2>
+          </div>
           <Link to="/educations" className="text-link">
             {t("common.viewAll")}
           </Link>
         </div>
         <div className="card-grid">
-          {educations.map((education) => (
-            <EducationCard key={education.id} education={education} />
+          {educations.map((education, index) => (
+            <EducationCard key={education.id} education={education} tone={index % 4} />
           ))}
         </div>
       </section>
 
       <section className="section-block">
         <div className="section-heading">
-          <h2>{t("home.latestAnnouncements")}</h2>
+          <div>
+            <p className="eyebrow">{t("announcements.eyebrow")}</p>
+            <h2>{t("home.latestAnnouncements")}</h2>
+          </div>
           <Link to="/announcements" className="text-link">
             {t("common.viewAll")}
           </Link>
         </div>
         <div className="card-grid">
-          {announcements.map((announcement) => (
-            <AnnouncementCard key={announcement.id} announcement={announcement} />
+          {announcements.map((announcement, index) => (
+            <AnnouncementCard key={announcement.id} announcement={announcement} tone={index % 4} />
           ))}
         </div>
       </section>
