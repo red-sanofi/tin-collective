@@ -181,6 +181,15 @@ make build
 
 This removes containers and the PostgreSQL volume, then starts fresh with seeded demo data.
 
+### `permission denied` on `./entrypoint.sh`
+
+This can happen on Windows bind mounts. The backend container runs `entrypoint.sh` via `sh`, so pull the latest code and rebuild:
+
+```bash
+make down
+make build
+```
+
 ## API overview
 
 | Endpoint | Description |
