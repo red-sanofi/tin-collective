@@ -30,7 +30,7 @@ export default function AnnouncementDetailPage() {
   });
 
   return (
-    <article className="detail-page">
+    <article className="detail-page detail-magazine">
       <Link to="/announcements" className="text-link">
         {t("announcements.back")}
       </Link>

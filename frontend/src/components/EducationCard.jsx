@@ -7,18 +7,20 @@ import {
 } from "../utils/i18nHelpers";
 
 const tones = ["red", "blue", "yellow", "pink"];
+const scatterClasses = ["scatter-0", "scatter-1", "scatter-2", "scatter-3", "scatter-4"];
 
-export default function EducationCard({ education, tone = 0 }) {
+export default function EducationCard({ education, tone = 0, scatter = 0 }) {
   const { t } = useTranslation();
   const startDate = formatDateTime(education.start_at, {
     dateStyle: "medium",
     timeStyle: "short",
   });
   const toneClass = tones[tone % tones.length];
+  const scatterClass = scatterClasses[scatter % scatterClasses.length];
 
   return (
-    <article className={`card education-card card-tone-${toneClass}`}>
-      <div className="card-topline" />
+    <article className={`card education-card card-tone-${toneClass} ${scatterClass}`}>
+      <div className="card-tear" />
       <div className="card-tag">{translateCategory(t, education.category)}</div>
       <h3>{education.title}</h3>
       <p>{education.summary}</p>
@@ -33,7 +35,7 @@ export default function EducationCard({ education, tone = 0 }) {
         </li>
       </ul>
       {education.is_registered && <span className="badge">{t("educations.registered")}</span>}
-      <Link to={`/educations/${education.slug}`} className="btn btn-secondary">
+      <Link to={`/educations/${education.slug}`} className="btn btn-secondary btn-tape">
         {t("common.viewDetails")}
       </Link>
     </article>

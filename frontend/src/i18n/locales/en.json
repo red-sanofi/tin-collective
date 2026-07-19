@@ -29,6 +29,8 @@
   "home": {
     "eyebrow": "Collective learning platform",
     "title": "Workshops, culture, and open calls — together.",
+    "titleFragments": ["Workshop", "Culture", "Open", "Call", "Together"],
+    "marquee": "TIN KOLEKTIF • EDUCATION • CINEMA • WORKSHOP • AI • COMMUNITY • OPEN CALL •",
     "copy": "Tin Kolektif brings people together for hands-on educations from chocolate workshops to AI, cinema readings, and community announcements.",
     "browseEducations": "Browse educations",
     "joinCollective": "Join the collective",

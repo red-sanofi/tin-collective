@@ -27,7 +27,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="auth-page panel">
+    <div className="auth-page panel auth-panel-chaos">
       <h1>{t("auth.loginTitle")}</h1>
       <form className="stack-form" onSubmit={handleSubmit}>
         <FormField

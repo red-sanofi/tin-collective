@@ -29,6 +29,8 @@
   "home": {
     "eyebrow": "Kolektif öğrenme platformu",
     "title": "Atölyeler, kültür ve açık çağrılar — birlikte.",
+    "titleFragments": ["Atölye", "Kültür", "Açık", "Çağrı", "Birlikte"],
+    "marquee": "TIN KOLEKTIF • EĞİTİM • SİNEMA • ATÖLYE • AI • TOPLULUK • AÇIK ÇAĞRI •",
     "copy": "Tin Kolektif; çikolata atölyelerinden yapay zekaya, sinema okumalarından topluluk duyurularına kadar uygulamalı eğitimler için insanları bir araya getirir.",
     "browseEducations": "Eğitimlere göz at",
     "joinCollective": "Kolektife katıl",

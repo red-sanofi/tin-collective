@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { api } from "../api/client";
 import EducationCard from "../components/EducationCard";
+import ScatterGrid from "../components/ScatterGrid";
 import { translateApiError } from "../utils/i18nHelpers";
 
 const categoryOptions = ["Workshop", "Technology", "Culture"];
@@ -31,30 +32,38 @@ export default function EducationsPage() {
   }, [category, t]);
 
   return (
-    <div>
-      <header className="page-header">
+    <div className="page-chaos">
+      <header className="page-header page-header-chaos">
         <div>
-          <p className="eyebrow">{t("educations.eyebrow")}</p>
-          <h1>{t("educations.title")}</h1>
+          <p className="stamp-label">{t("educations.eyebrow")}</p>
+          <h1 className="page-title-slant">{t("educations.title")}</h1>
         </div>
-        <select value={category} onChange={(event) => setCategory(event.target.value)}>
-          <option value="">{t("educations.allCategories")}</option>
-          {categoryOptions.map((option) => (
-            <option key={option} value={option}>
-              {t(`categories.${option}`)}
-            </option>
-          ))}
-        </select>
+        <label className="filter-sticker">
+          <span>{t("educations.allCategories")}</span>
+          <select value={category} onChange={(event) => setCategory(event.target.value)}>
+            <option value="">{t("educations.allCategories")}</option>
+            {categoryOptions.map((option) => (
+              <option key={option} value={option}>
+                {t(`categories.${option}`)}
+              </option>
+            ))}
+          </select>
+        </label>
       </header>
 
       {loading && <div className="loading-block">{t("educations.loading")}</div>}
       {error && <div className="alert alert-error">{error}</div>}
 
-      <div className="card-grid">
+      <ScatterGrid>
         {educations.map((education, index) => (
-          <EducationCard key={education.id} education={education} tone={index % 4} />
+          <EducationCard
+            key={education.id}
+            education={education}
+            tone={index % 4}
+            scatter={index}
+          />
         ))}
-      </div>
+      </ScatterGrid>
     </div>
   );
 }

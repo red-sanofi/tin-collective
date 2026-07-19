@@ -19,16 +19,21 @@ export default function AnnouncementsPage() {
   }, [t]);
 
   return (
-    <div>
-      <header className="page-header">
-        <p className="eyebrow">{t("announcements.eyebrow")}</p>
-        <h1>{t("announcements.title")}</h1>
+    <div className="page-chaos">
+      <header className="page-header page-header-chaos">
+        <p className="stamp-label">{t("announcements.eyebrow")}</p>
+        <h1 className="page-title-slant">{t("announcements.title")}</h1>
       </header>
       {loading && <div className="loading-block">{t("announcements.loading")}</div>}
       {error && <div className="alert alert-error">{error}</div>}
-      <div className="card-grid">
-        {announcements.map((announcement) => (
-          <AnnouncementCard key={announcement.id} announcement={announcement} />
+      <div className="announcement-stack">
+        {announcements.map((announcement, index) => (
+          <AnnouncementCard
+            key={announcement.id}
+            announcement={announcement}
+            tone={index % 4}
+            scatter={index}
+          />
         ))}
       </div>
     </div>

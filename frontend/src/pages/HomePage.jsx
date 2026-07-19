@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import { api } from "../api/client";
 import AnnouncementCard from "../components/AnnouncementCard";
 import EducationCard from "../components/EducationCard";
+import FragmentTitle from "../components/FragmentTitle";
+import ScatterGrid from "../components/ScatterGrid";
 
 export default function HomePage() {
   const { t } = useTranslation();
@@ -22,73 +24,87 @@ export default function HomePage() {
     load().catch(console.error);
   }, []);
 
+  const titleFragments = t("home.titleFragments", { returnObjects: true });
+
   return (
-    <div className="home-page">
-      <section className="hero poster-hero">
-        <div className="hero-content">
-          <p className="eyebrow">{t("home.eyebrow")}</p>
-          <h1>
-            <span className="hero-line">{t("home.title")}</span>
-          </h1>
-          <p className="hero-copy">{t("home.copy")}</p>
-          <div className="hero-actions">
-            <Link to="/educations" className="btn btn-primary">
+    <div className="home-page home-chaos">
+      <section className="chaos-hero">
+        <div className="chaos-hero-left">
+          <p className="stamp-label">{t("home.eyebrow")}</p>
+          <FragmentTitle fragments={Array.isArray(titleFragments) ? titleFragments : [t("home.title")]} />
+          <p className="hero-copy tilt-copy">{t("home.copy")}</p>
+          <div className="hero-actions skew-actions">
+            <Link to="/educations" className="btn btn-primary btn-tape">
               {t("home.browseEducations")}
             </Link>
-            <Link to="/join-us" className="btn btn-secondary">
+            <Link to="/join-us" className="btn btn-secondary btn-tape">
               {t("home.joinCollective")}
             </Link>
           </div>
         </div>
-        <div className="hero-collage" aria-hidden="true">
-          <div className="collage-block collage-red">
-            <span>944+</span>
-            <small>{t("home.instagramCommunity")}</small>
+
+        <div className="chaos-orbit" aria-hidden="true">
+          <div className="orbit-card orbit-red">
+            <strong>944+</strong>
+            <span>{t("home.instagramCommunity")}</span>
           </div>
-          <div className="collage-block collage-blue">
-            <span>SINEMA</span>
+          <div className="orbit-card orbit-blue">
+            <strong>SINEMA</strong>
           </div>
-          <div className="collage-block collage-yellow">
-            <span>{t("common.open")}</span>
-            <small>{t("home.openRegistrations")}</small>
+          <div className="orbit-card orbit-yellow">
+            <strong>{t("common.open")}</strong>
+            <span>{t("home.openRegistrations")}</span>
           </div>
-          <div className="collage-block collage-pink">
-            <span>AI</span>
-            <small>WORKSHOP</small>
+          <div className="orbit-card orbit-pink">
+            <strong>AI</strong>
+            <span>WORKSHOP</span>
           </div>
+          <div className="orbit-ring" />
         </div>
       </section>
 
-      <section className="section-block">
-        <div className="section-heading">
+      <section className="section-chaos">
+        <div className="section-marker">
+          <span className="section-index">01</span>
           <div>
-            <p className="eyebrow">{t("educations.eyebrow")}</p>
+            <p className="stamp-label">{t("educations.eyebrow")}</p>
             <h2>{t("home.upcomingEducations")}</h2>
           </div>
-          <Link to="/educations" className="text-link">
+          <Link to="/educations" className="text-link text-link-tilt">
             {t("common.viewAll")}
           </Link>
         </div>
-        <div className="card-grid">
+        <ScatterGrid>
           {educations.map((education, index) => (
-            <EducationCard key={education.id} education={education} tone={index % 4} />
+            <EducationCard
+              key={education.id}
+              education={education}
+              tone={index % 4}
+              scatter={index}
+            />
           ))}
-        </div>
+        </ScatterGrid>
       </section>
 
-      <section className="section-block">
-        <div className="section-heading">
+      <section className="section-chaos section-chaos-alt">
+        <div className="section-marker">
+          <span className="section-index">02</span>
           <div>
-            <p className="eyebrow">{t("announcements.eyebrow")}</p>
+            <p className="stamp-label">{t("announcements.eyebrow")}</p>
             <h2>{t("home.latestAnnouncements")}</h2>
           </div>
-          <Link to="/announcements" className="text-link">
+          <Link to="/announcements" className="text-link text-link-tilt">
             {t("common.viewAll")}
           </Link>
         </div>
-        <div className="card-grid">
+        <div className="announcement-stack">
           {announcements.map((announcement, index) => (
-            <AnnouncementCard key={announcement.id} announcement={announcement} tone={index % 4} />
+            <AnnouncementCard
+              key={announcement.id}
+              announcement={announcement}
+              tone={index % 4}
+              scatter={index}
+            />
           ))}
         </div>
       </section>

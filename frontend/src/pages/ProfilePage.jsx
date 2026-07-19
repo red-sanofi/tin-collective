@@ -50,7 +50,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="profile-page">
+    <div className="page-chaos profile-page">
       <header className="page-header">
         <div>
           <p className="eyebrow">{t("profile.eyebrow")}</p>

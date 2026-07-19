@@ -35,7 +35,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="auth-page panel">
+    <div className="auth-page panel auth-panel-chaos">
       <h1>{t("auth.registerTitle")}</h1>
       <form className="stack-form" onSubmit={handleSubmit}>
         <FormField

@@ -38,7 +38,7 @@ export default function JoinUsPage() {
   }
 
   return (
-    <div className="split-page">
+    <div className="page-chaos split-page split-chaos">
       <section>
         <p className="eyebrow">{t("joinUs.eyebrow")}</p>
         <h1>{t("joinUs.title")}</h1>

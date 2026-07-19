@@ -88,7 +88,7 @@ export default function AdminPage() {
   ];
 
   return (
-    <div>
+    <div className="page-chaos">
       <header className="page-header">
         <p className="eyebrow">{t("admin.eyebrow")}</p>
         <h1>{t("admin.title")}</h1>
