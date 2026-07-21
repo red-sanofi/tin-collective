@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import BrandLogo from "../BrandLogo";
+import BrandLogoLink from "../BrandLogoLink";
 import LanguageSwitcher from "../LanguageSwitcher";
 import ThemeSwitcher from "../ThemeSwitcher";
 import { useAuth } from "../../context/AuthContext";
@@ -18,10 +20,7 @@ export default function GalleryLayout() {
     <div className="app-shell theme-gallery">
       <header className="gallery-header">
         <div className="gallery-header-top">
-          <Link to="/" className="gallery-brand" onClick={closeMenu}>
-            <strong>Tin Kolektif</strong>
-            <span>{t("themes.gallery.brandTagline")}</span>
-          </Link>
+          <BrandLogoLink variant="horizontal" className="gallery-brand" onClick={closeMenu} />
 
           <div className="gallery-header-actions">
             <ThemeSwitcher />
@@ -91,7 +90,7 @@ export default function GalleryLayout() {
       <footer className="gallery-footer">
         <div className="gallery-footer-grid">
           <div>
-            <strong>Tin Kolektif</strong>
+            <BrandLogo variant="horizontal" className="gallery-footer-logo" />
             <p>{t("footer.tagline")}</p>
           </div>
           <div>

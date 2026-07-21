@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import BrandLogoLink from "../BrandLogoLink";
 import LanguageSwitcher from "../LanguageSwitcher";
 import ThemeSwitcher from "../ThemeSwitcher";
 import { useAuth } from "../../context/AuthContext";
@@ -17,9 +18,7 @@ export default function ArtisanLayout() {
   return (
     <div className="app-shell theme-artisan">
       <header className="artisan-header">
-        <Link to="/" className="artisan-brand" onClick={closeMenu}>
-          Tin Kolektif
-        </Link>
+        <BrandLogoLink variant="horizontal" className="artisan-brand" onClick={closeMenu} />
 
         <button
           type="button"

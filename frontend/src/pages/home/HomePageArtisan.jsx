@@ -5,7 +5,7 @@ import { api } from "../../api/client";
 import ArtisanWorkshopCard from "../../components/ArtisanWorkshopCard";
 import SocialFeed from "../../components/SocialFeed";
 import { useAuth } from "../../context/AuthContext";
-import { getFeaturedHeroImage } from "../../constants/demoImages";
+import { getArtisanHeroImage } from "../../constants/demoImages";
 
 export default function HomePageArtisan() {
   const { t } = useTranslation();
@@ -30,7 +30,7 @@ export default function HomePageArtisan() {
       <section className="artisan-hero">
         <img
           className="artisan-hero-image"
-          src={getFeaturedHeroImage()}
+          src={getArtisanHeroImage()}
           alt={t("themes.artisan.heroAlt")}
         />
         <div className="artisan-hero-overlay" />

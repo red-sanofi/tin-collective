@@ -176,29 +176,44 @@ h3 {
   backdrop-filter: blur(10px);
 }
 
+.brand-logo-link {
+  display: inline-flex;
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand-logo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+}
+
+.brand-logo-full {
+  width: 4.35rem;
+}
+
+.brand-logo-mark {
+  width: 2.75rem;
+}
+
+.brand-logo-horizontal {
+  width: clamp(9.5rem, 24vw, 14rem);
+}
+
 .brand-stamp {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.15rem;
-  padding: 0.8rem 0.45rem;
+  justify-content: center;
+  padding: 0.55rem 0.4rem;
   border: 3px solid var(--ink);
   background: var(--accent);
   transform: rotate(-7deg);
   box-shadow: 5px 5px 0 var(--ink);
-  font-family: var(--display);
-  text-align: center;
 }
 
-.brand-stamp span {
-  font-size: 1.35rem;
-  line-height: 1;
-}
-
-.brand-stamp small {
-  font-family: var(--mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.18em;
+.brand-stamp .brand-logo-full {
+  width: 3.85rem;
 }
 
 .rail-nav {
@@ -1229,7 +1244,7 @@ h3 {
 .theme-preview-artisan {
   background:
     linear-gradient(180deg, rgba(31, 26, 23, 0.15), rgba(31, 26, 23, 0.55)),
-    url("/images/artisan-hero.png") center / cover no-repeat;
+    url("/images/hero-brand-soft.jpg") center / cover no-repeat;
 }
 
 .theme-preview-gallery {

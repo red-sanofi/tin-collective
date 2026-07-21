@@ -1,6 +1,7 @@
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import ArtBackground from "../ArtBackground";
+import BrandLogoLink from "../BrandLogoLink";
 import LanguageSwitcher from "../LanguageSwitcher";
 import MarqueeStrip from "../MarqueeStrip";
 import ThemeSwitcher from "../ThemeSwitcher";
@@ -15,10 +16,7 @@ export default function PosterLayout() {
     <div className="app-shell theme-poster">
       <ArtBackground />
       <aside className="site-rail">
-        <Link to="/" className="brand-stamp">
-          <span>TIN</span>
-          <small>KOLEKTIF</small>
-        </Link>
+        <BrandLogoLink variant="full" className="brand-stamp" />
         <nav className="rail-nav">
           <NavLink to="/educations">{t("nav.educations")}</NavLink>
           <NavLink to="/announcements">{t("nav.announcements")}</NavLink>

@@ -65,6 +65,7 @@ backend/staticfiles/
 # Node
 node_modules/
 frontend/dist/
+frontend/public/brand/_extracted/
 
 # Flask stuff:
 instance/

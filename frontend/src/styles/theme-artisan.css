@@ -36,11 +36,11 @@
 }
 
 .artisan-brand {
-  font-family: var(--artisan-serif);
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.artisan-brand .brand-logo-horizontal {
+  width: clamp(8.5rem, 20vw, 12.5rem);
 }
 
 .artisan-nav {

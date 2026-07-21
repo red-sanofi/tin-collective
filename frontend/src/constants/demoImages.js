@@ -6,8 +6,9 @@ const images = {
   gallery: "/images/gallery-visit.jpg",
   community: "/images/community-studio.jpg",
   journal: "/images/journal-books.jpg",
-  featured: "/images/hero-featured.jpg",
-  artisan: "/images/artisan-hero.png",
+  featured: "/images/hero-brand.jpg",
+  artisan: "/images/hero-brand-soft.jpg",
+  brandCard: "/images/brand-card.jpg",
 };
 
 const educationSlugImages = {
@@ -74,6 +75,10 @@ export function getAnnouncementImage(announcement, index = 0) {
 
 export function getFeaturedHeroImage() {
   return images.featured;
+}
+
+export function getArtisanHeroImage() {
+  return images.artisan;
 }
 
 export { images };

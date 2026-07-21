@@ -44,21 +44,19 @@
 }
 
 .gallery-brand {
-  display: grid;
-  gap: 0.15rem;
+  flex-shrink: 0;
 }
 
-.gallery-brand strong {
-  font-family: var(--gallery-serif);
-  font-size: clamp(1.35rem, 3vw, 1.8rem);
-  font-weight: 600;
+.gallery-brand .brand-logo-horizontal {
+  width: clamp(9.5rem, 26vw, 13.5rem);
 }
 
-.gallery-brand span {
-  color: var(--gallery-muted);
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.gallery-footer-logo {
+  margin-bottom: 0.65rem;
+}
+
+.gallery-footer-logo.brand-logo-horizontal {
+  width: clamp(8rem, 18vw, 11rem);
 }
 
 .gallery-header-actions {
