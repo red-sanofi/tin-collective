@@ -54,6 +54,24 @@
       "about": "Hakkımızda",
       "workshops": "Atölyeler",
       "gallery": "Galeri"
+    },
+    "gallery": {
+      "name": "Sanat Galerisi",
+      "description": "Narmanlı Sanat tarzında sade galeri düzeni, atölye kartları ve yazıhane akışı.",
+      "brandTagline": "İstanbul sanat atölyesi ruhu",
+      "myAccount": "Hesabım",
+      "heroKicker": "Tin Kolektif ile",
+      "workshopsTitle": "Yaklaşan Atölyeler",
+      "journalTitle": "Yazıhane",
+      "explore": "İncele",
+      "footerInfo": "Bilgi",
+      "footerUser": "Kullanıcı"
+    },
+    "galleryNav": {
+      "about": "Hakkımızda",
+      "workshops": "Atölyeler",
+      "journal": "Yazıhane",
+      "contact": "İletişim"
     }
   },
   "home": {

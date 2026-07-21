@@ -7,6 +7,7 @@ import { ThemeProvider } from "./context/ThemeContext";
 import "./i18n";
 import "./styles/index.css";
 import "./styles/theme-artisan.css";
+import "./styles/theme-gallery.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

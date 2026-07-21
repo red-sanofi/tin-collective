@@ -54,6 +54,24 @@
       "about": "About",
       "workshops": "Workshops",
       "gallery": "Gallery"
+    },
+    "gallery": {
+      "name": "Art Gallery",
+      "description": "Clean gallery layout inspired by Narmanlı Sanat, with workshops and a journal feed.",
+      "brandTagline": "Art workshop spirit",
+      "myAccount": "My account",
+      "heroKicker": "With Tin Kolektif",
+      "workshopsTitle": "Upcoming Workshops",
+      "journalTitle": "Journal",
+      "explore": "Explore",
+      "footerInfo": "Info",
+      "footerUser": "User"
+    },
+    "galleryNav": {
+      "about": "About",
+      "workshops": "Workshops",
+      "journal": "Journal",
+      "contact": "Contact"
     }
   },
   "home": {

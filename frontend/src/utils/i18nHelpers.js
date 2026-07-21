@@ -25,6 +25,21 @@ export function formatDate(value, options = { dateStyle: "medium" }) {
   return new Date(value).toLocaleDateString(getDateLocale(), options);
 }
 
+export function formatCompactDate(value, language = i18n.language) {
+  if (!value) {
+    return { day: "", month: "" };
+  }
+
+  const date = new Date(value);
+  const day = date.getDate();
+  const month = date
+    .toLocaleDateString(getDateLocale(language), { month: "short" })
+    .replace(".", "")
+    .slice(0, 3);
+
+  return { day, month };
+}
+
 export function translateCategory(t, category) {
   return t(`categories.${category}`, { defaultValue: category });
 }

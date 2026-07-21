@@ -11,6 +11,12 @@ export const THEMES = {
     descriptionKey: "themes.artisan.description",
     previewClass: "theme-preview-artisan",
   },
+  gallery: {
+    id: "gallery",
+    labelKey: "themes.gallery.name",
+    descriptionKey: "themes.gallery.description",
+    previewClass: "theme-preview-gallery",
+  },
 };
 
 export const THEME_IDS = Object.keys(THEMES);
