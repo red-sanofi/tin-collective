@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { api } from "../../api/client";
 import GalleryWorkshopCard from "../../components/GalleryWorkshopCard";
 import SocialFeed from "../../components/SocialFeed";
+import { getFeaturedHeroImage } from "../../constants/demoImages";
 import { formatCompactDate } from "../../utils/i18nHelpers";
 
 export default function HomePageGallery() {
@@ -17,21 +18,21 @@ export default function HomePageGallery() {
         api.getEducations(),
         api.getAnnouncements(),
       ]);
-      setEducations(educationData.results || educationData);
+      setEducations((educationData.results || educationData).slice(0, 4));
       setAnnouncements((announcementData.results || announcementData).slice(0, 6));
     }
     load().catch(console.error);
   }, []);
 
   const featured = educations[0];
-  const upcoming = educations.slice(0, 3);
+  const upcoming = educations.slice(0, 4);
 
   return (
     <div className="home-page home-gallery">
       {featured && (
         <section className="gallery-feature-hero">
           <div className="gallery-feature-media">
-            <img src="/images/artisan-hero.png" alt="" />
+            <img src={getFeaturedHeroImage()} alt="" />
           </div>
           <div className="gallery-feature-copy">
             <p className="gallery-feature-kicker">{t("themes.gallery.heroKicker")}</p>
@@ -51,7 +52,7 @@ export default function HomePageGallery() {
         </div>
         <div className="gallery-workshop-list">
           {upcoming.map((education, index) => (
-            <GalleryWorkshopCard key={education.id} education={education} featured={index === 0} />
+            <GalleryWorkshopCard key={education.id} education={education} index={index} featured={index === 0} />
           ))}
         </div>
       </section>

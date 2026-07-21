@@ -5,6 +5,7 @@ import { api } from "../../api/client";
 import ArtisanWorkshopCard from "../../components/ArtisanWorkshopCard";
 import SocialFeed from "../../components/SocialFeed";
 import { useAuth } from "../../context/AuthContext";
+import { getFeaturedHeroImage } from "../../constants/demoImages";
 
 export default function HomePageArtisan() {
   const { t } = useTranslation();
@@ -18,8 +19,8 @@ export default function HomePageArtisan() {
         api.getEducations(),
         api.getAnnouncements(),
       ]);
-      setEducations((educationData.results || educationData).slice(0, 3));
-      setAnnouncements((announcementData.results || announcementData).slice(0, 3));
+      setEducations((educationData.results || educationData).slice(0, 4));
+      setAnnouncements((announcementData.results || announcementData).slice(0, 4));
     }
     load().catch(console.error);
   }, []);
@@ -29,7 +30,7 @@ export default function HomePageArtisan() {
       <section className="artisan-hero">
         <img
           className="artisan-hero-image"
-          src="/images/artisan-hero.png"
+          src={getFeaturedHeroImage()}
           alt={t("themes.artisan.heroAlt")}
         />
         <div className="artisan-hero-overlay" />
@@ -59,8 +60,8 @@ export default function HomePageArtisan() {
           </Link>
         </div>
         <div className="artisan-workshop-grid">
-          {educations.map((education) => (
-            <ArtisanWorkshopCard key={education.id} education={education} />
+          {educations.map((education, index) => (
+            <ArtisanWorkshopCard key={education.id} education={education} index={index} />
           ))}
         </div>
       </section>

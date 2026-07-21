@@ -1,22 +1,24 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { getEducationImage } from "../constants/demoImages";
 import {
   formatDateTime,
   translateCategory,
   translateDeliveryMode,
 } from "../utils/i18nHelpers";
 
-export default function GalleryWorkshopCard({ education, featured = false }) {
+export default function GalleryWorkshopCard({ education, featured = false, index = 0 }) {
   const { t } = useTranslation();
   const startDate = formatDateTime(education.start_at, {
     dateStyle: "long",
     timeStyle: "short",
   });
+  const image = getEducationImage(education, index);
 
   return (
     <article className={`gallery-workshop-card${featured ? " is-featured" : ""}`}>
       <Link to={`/educations/${education.slug}`} className="gallery-workshop-media">
-        <img src="/images/artisan-hero.png" alt="" loading="lazy" />
+        <img src={image} alt="" loading="lazy" />
       </Link>
       <div className="gallery-workshop-body">
         <p className="gallery-workshop-meta">

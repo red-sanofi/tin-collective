@@ -6,19 +6,15 @@ import {
   translateDeliveryMode,
 } from "../utils/i18nHelpers";
 
-const categoryImages = {
-  Workshop: "/images/artisan-hero.png",
-  Technology: "/images/artisan-hero.png",
-  Culture: "/images/artisan-hero.png",
-};
+import { getEducationImage } from "../constants/demoImages";
 
-export default function ArtisanWorkshopCard({ education }) {
+export default function ArtisanWorkshopCard({ education, index = 0 }) {
   const { t } = useTranslation();
   const startDate = formatDateTime(education.start_at, {
     dateStyle: "medium",
     timeStyle: "short",
   });
-  const image = categoryImages[education.category] || categoryImages.Workshop;
+  const image = getEducationImage(education, index);
 
   return (
     <article className="artisan-workshop-card">

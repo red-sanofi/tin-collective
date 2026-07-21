@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { getEducationImage } from "../constants/demoImages";
 import {
   formatDateTime,
   translateCategory,
@@ -7,6 +8,7 @@ import {
 } from "../utils/i18nHelpers";
 
 const tones = ["red", "blue", "yellow", "pink"];
+
 export default function EducationCard({ education, tone = 0 }) {
   const { t } = useTranslation();
   const startDate = formatDateTime(education.start_at, {
@@ -14,10 +16,14 @@ export default function EducationCard({ education, tone = 0 }) {
     timeStyle: "short",
   });
   const toneClass = tones[tone % tones.length];
+  const image = getEducationImage(education, tone);
 
   return (
     <article className={`card education-card card-tone-${toneClass}`}>
       <div className="card-tear" />
+      <Link to={`/educations/${education.slug}`} className="card-image">
+        <img src={image} alt="" loading="lazy" />
+      </Link>
       <div className="card-tag">{translateCategory(t, education.category)}</div>
       <h3>{education.title}</h3>
       <p>{education.summary}</p>

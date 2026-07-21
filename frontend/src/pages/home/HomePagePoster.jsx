@@ -19,8 +19,8 @@ export default function HomePagePoster() {
         api.getEducations(),
         api.getAnnouncements(),
       ]);
-      setEducations((educationData.results || educationData).slice(0, 3));
-      setAnnouncements((announcementData.results || announcementData).slice(0, 2));
+      setEducations((educationData.results || educationData).slice(0, 4));
+      setAnnouncements((announcementData.results || announcementData).slice(0, 4));
     }
     load().catch(console.error);
   }, []);
