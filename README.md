@@ -302,12 +302,9 @@ Production: `https://api.tinkolektif.org/`
 
 ## Cloud deployment notes
 
-- Use `docker-compose.prod.yml` on the production VM
-- Copy `.env.production.example` to `.env` and set secrets
-- Install host nginx configs from `deploy/nginx/` (see [deploy/README.md](deploy/README.md))
-- Domains: `tinkolektif.org`, `api.tinkolektif.org`, `admin.tinkolektif.org`
-- Set strong values for `DJANGO_SECRET_KEY`, database credentials, and `DJANGO_DEBUG=false`
-- Rebuild frontend after changing `VITE_API_URL`
+- Full guide: [deploy/README.md](deploy/README.md)
+- One-command server fix: `bash deploy/fix-production.sh`
+- Host nginx configs: [deploy/nginx/](deploy/nginx/)
 
 ## Contributing
 

@@ -29,18 +29,17 @@ set_env CORS_ALLOWED_ORIGINS https://tinkolektif.org,https://www.tinkolektif.org
 set_env CSRF_TRUSTED_ORIGINS https://admin.tinkolektif.org
 set_env DJANGO_ALLOWED_HOSTS localhost,127.0.0.1,backend,tinkolektif.org,www.tinkolektif.org,api.tinkolektif.org,admin.tinkolektif.org
 
-echo "Installing nginx site configs..."
-sudo cp deploy/nginx/tinkolektif.org.conf /etc/nginx/sites-available/
-sudo cp deploy/nginx/api.tinkolektif.org.conf /etc/nginx/sites-available/
-sudo cp deploy/nginx/admin.tinkolektif.org.conf /etc/nginx/sites-available/
-sudo ln -sf /etc/nginx/sites-available/tinkolektif.org.conf /etc/nginx/sites-enabled/
-sudo ln -sf /etc/nginx/sites-available/api.tinkolektif.org.conf /etc/nginx/sites-enabled/
-sudo ln -sf /etc/nginx/sites-available/admin.tinkolektif.org.conf /etc/nginx/sites-enabled/
-sudo nginx -t
-sudo systemctl reload nginx
+echo "Installing host nginx configs..."
+bash deploy/install-nginx.sh
 
 echo "Recreating production containers..."
 docker compose -f docker-compose.prod.yml up --build -d
 
-echo "Running health check..."
+echo "Ensuring Django static files are collected..."
+docker compose -f docker-compose.prod.yml exec -T backend python manage.py collectstatic --noinput
+
+echo "Running admin diagnostics..."
+bash deploy/diagnose-admin.sh
+
+echo "Running full health check..."
 bash deploy/check-site.sh
