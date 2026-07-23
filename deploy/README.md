@@ -57,6 +57,7 @@ TLS certificates (Certbot) must exist at `/etc/letsencrypt/live/tinkolektif.org/
 | `deploy/check-site.sh` | Health check only |
 | `deploy/wait-for-backend.sh` | Wait for gunicorn on `:8000` |
 | `deploy/install-nginx.sh` | Install host nginx configs only |
+| `deploy/fix-subdomains.sh` | **Fix api/admin `000` errors (nginx + TLS expand)** |
 | `deploy/diagnose-public.sh` | DNS / nginx / SSL for api + admin subdomains |
 | `deploy/diagnose-admin.sh` | Admin static file debug |
 
@@ -77,20 +78,14 @@ Run diagnostics on the server:
 bash deploy/diagnose-public.sh
 ```
 
-Typical fixes:
+One-command fix:
 
 ```bash
-# 1. Install api + admin nginx site configs
-bash deploy/install-nginx.sh
-
-# 2. Expand Let's Encrypt cert to include subdomains (if cert lacks api/admin SANs)
-sudo certbot certonly --nginx \
-  -d tinkolektif.org -d www.tinkolektif.org \
-  -d api.tinkolektif.org -d admin.tinkolektif.org
-
-sudo systemctl reload nginx
+bash deploy/fix-subdomains.sh
 bash deploy/check-site.sh
 ```
+
+That script installs api/admin nginx configs, expands the Let's Encrypt cert if needed, reloads nginx, and verifies HTTPS.
 
 Ensure DNS **A records** exist for `api.tinkolektif.org` and `admin.tinkolektif.org` pointing to this server (same IP as `tinkolektif.org`).
 

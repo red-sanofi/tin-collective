@@ -52,3 +52,18 @@ resolve_host() {
   fi
   printf 'unknown'
 }
+
+cert_includes_host() {
+  host="$1"
+  cert_file="${2:-/etc/letsencrypt/live/tinkolektif.org/fullchain.pem}"
+  if [ ! -r "$cert_file" ] && [ -r "/etc/letsencrypt/live/tinkolektif.org/fullchain.pem" ]; then
+    cert_file="/etc/letsencrypt/live/tinkolektif.org/fullchain.pem"
+  fi
+  if ! command -v openssl >/dev/null 2>&1; then
+    return 1
+  fi
+  if [ ! -r "$cert_file" ]; then
+    return 1
+  fi
+  openssl x509 -in "$cert_file" -noout -text 2>/dev/null | grep -q "DNS:${host}"
+}

@@ -147,12 +147,31 @@ else
   fail "nginx admin local route (expected 200/302, got $admin_local_code)"
 fi
 
+public_https_hint() {
+  url="$1"
+  local_route_code="$2"
+  code="$(http_code "$url")"
+  if [ "$code" != "000" ]; then
+    return
+  fi
+  insecure="$(http_code_with_headers "$url" 12 -k)"
+  if [ "$insecure" = "200" ] || [ "$insecure" = "302" ]; then
+    printf ' — TLS cert likely missing subdomain SAN; run: bash deploy/fix-subdomains.sh'
+    return
+  fi
+  if [ "$local_route_code" = "200" ] || [ "$local_route_code" = "302" ]; then
+    printf ' — local nginx OK but public HTTPS fails; run: bash deploy/fix-subdomains.sh'
+    return
+  fi
+  printf ' — run: bash deploy/fix-subdomains.sh'
+}
+
 section "Public API ($API_URL)"
 code="$(http_code "${API_URL}/")"
 if [ "$code" = "200" ]; then
   pass "API root $API_URL/ ($code)"
 else
-  fail "API root $API_URL/ (expected 200, got $code)$(explain_code "$code")"
+  fail "API root $API_URL/ (expected 200, got $code)$(explain_code "$code")$(public_https_hint "${API_URL}/" "$api_local_code")"
 fi
 
 if body_contains "${API_URL}/" "Tin Kolektif API"; then
@@ -230,7 +249,7 @@ code="$(http_code "${ADMIN_URL}/admin/")"
 if [ "$code" = "200" ] || [ "$code" = "302" ]; then
   pass "admin login page ($code)"
 else
-  fail "admin login page (expected 200/302, got $code)"
+  fail "admin login page (expected 200/302, got $code)$(public_https_hint "${ADMIN_URL}/admin/" "$admin_local_code")"
 fi
 
 code="$(http_code "${ADMIN_URL}/static/admin/css/base.css")"
@@ -248,8 +267,8 @@ section "Summary"
 echo "Passed: $PASS  Warnings: $WARN  Failed: $FAIL"
 if [ "$FAIL" -gt 0 ]; then
   red "Some checks failed."
+  echo "  bash deploy/fix-subdomains.sh    # nginx + TLS for api/admin"
   echo "  bash deploy/diagnose-public.sh   # DNS / nginx / SSL details"
-  echo "  bash deploy/install-nginx.sh"
   echo "  bash deploy/production.sh"
   exit 1
 fi
