@@ -32,6 +32,8 @@ npm install
 npm start
 ```
 
+Requires **Node.js 20.19+**. If `npm install` fails with peer dependency errors, ensure you pulled latest (includes `mobile/.npmrc`) and delete `node_modules` before reinstalling.
+
 ### API URL (`EXPO_PUBLIC_API_URL`)
 
 | Where you run the app | Set in `mobile/.env` |
@@ -59,6 +61,17 @@ npm start
 - Scan QR — Expo Go on your phone  
 
 From repo root: `make mobile`
+
+### `npm error ERESOLVE` (react vs react-dom)
+
+Pull latest code (includes `mobile/.npmrc`), then clean install:
+
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+Do **not** use `npm install --omit=dev`.
 
 ### Expo Go says SDK mismatch (SDK 52 vs 54)
 

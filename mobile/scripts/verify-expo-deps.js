@@ -11,6 +11,7 @@ const required = [
   "expo-router/package.json",
   "@expo/config-plugins/package.json",
   "babel-preset-expo/package.json",
+  "react-native-gesture-handler/package.json",
   "react-native-reanimated/package.json",
   "react-native-worklets/package.json",
 ];
