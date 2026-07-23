@@ -27,7 +27,9 @@ React Native mobile app for [Tin Kolektif](https://tinkolektif.org), built with 
 ```bash
 cd mobile
 cp .env.example .env
+rm -rf node_modules package-lock.json
 npm install
+npm start
 ```
 
 ### API URL (`EXPO_PUBLIC_API_URL`)
@@ -57,6 +59,18 @@ npm start
 - Scan QR — Expo Go on your phone  
 
 From repo root: `make mobile`
+
+### `Cannot find module 'expo/config-plugins'`
+
+Usually a broken or partial install. From `mobile/`:
+
+```bash
+rm -rf node_modules package-lock.json
+npm install
+npm start
+```
+
+If it persists, ensure Node.js 20+ and run `npm install` again (do not use `npm install --omit=dev` — `babel-preset-expo` is required).
 
 ## Production builds
 
