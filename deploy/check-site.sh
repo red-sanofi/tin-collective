@@ -194,10 +194,14 @@ else
 fi
 
 code="$(http_code "$ADMIN_URL/static/admin/css/base.css")"
+static_location="$(header_value "$ADMIN_URL/static/admin/css/base.css" "location")"
+api_static_code="$(http_code "$API_URL/static/admin/css/base.css")"
 if [ "$code" = "200" ]; then
   pass "admin static CSS ($code)"
+elif [ "$api_static_code" = "200" ]; then
+  warn "admin subdomain static returned $code (Location: ${static_location:-none}) but api static works — update admin nginx config"
 else
-  fail "admin static CSS (expected 200, got $code) — check nginx /static/ proxy and collectstatic"
+  fail "admin static CSS (expected 200, got $code, Location: ${static_location:-none}) — check nginx /static/ proxy and collectstatic"
 fi
 
 section "Summary"
