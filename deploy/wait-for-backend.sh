@@ -11,12 +11,16 @@ MAX_ATTEMPTS="${MAX_ATTEMPTS:-90}"
 SLEEP_SECONDS="${SLEEP_SECONDS:-2}"
 
 attempt=0
+last_code="000"
+elapsed=0
+
 printf 'Waiting for backend at %s' "$LOCAL_API"
 
 while [ "$attempt" -lt "$MAX_ATTEMPTS" ]; do
-  code="$(curl -sS -o /dev/null -w "%{http_code}" --max-time 5 "$LOCAL_API/" 2>/dev/null || echo "000")"
-  if [ "$code" = "200" ]; then
-    printf '\nBackend is ready (%s) after %s seconds.\n' "$code" "$((attempt * SLEEP_SECONDS))")
+  last_code="$(curl -sS -o /dev/null -w '%{http_code}' --max-time 5 "${LOCAL_API}/" 2>/dev/null || echo 000)"
+  if [ "$last_code" = "200" ]; then
+    elapsed=$((attempt * SLEEP_SECONDS))
+    printf '\nBackend is ready after %s seconds.\n' "$elapsed"
     exit 0
   fi
   attempt=$((attempt + 1))
@@ -24,8 +28,8 @@ while [ "$attempt" -lt "$MAX_ATTEMPTS" ]; do
   sleep "$SLEEP_SECONDS"
 done
 
-printf '\nBackend did not become ready after %s seconds (last code: %s).\n' \
-  "$((MAX_ATTEMPTS * SLEEP_SECONDS))" "$code"
+elapsed=$((MAX_ATTEMPTS * SLEEP_SECONDS))
+printf '\nBackend did not become ready after %s seconds. Last HTTP code: %s\n' "$elapsed" "$last_code"
 echo "Recent backend logs:"
 docker compose -f "$COMPOSE_FILE" logs backend --tail 40 || true
 exit 1
