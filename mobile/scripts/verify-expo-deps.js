@@ -11,6 +11,8 @@ const required = [
   "expo-router/package.json",
   "@expo/config-plugins/package.json",
   "babel-preset-expo/package.json",
+  "react-native-reanimated/package.json",
+  "react-native-worklets/package.json",
 ];
 
 const missing = required.filter((rel) => !existsSync(join(root, "node_modules", rel)));

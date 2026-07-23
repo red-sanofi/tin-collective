@@ -60,6 +60,30 @@ npm start
 
 From repo root: `make mobile`
 
+### Expo Go says SDK mismatch (SDK 52 vs 54)
+
+This project uses **Expo SDK 54** to match the current Expo Go app from the App Store. After upgrading:
+
+```bash
+git pull
+cd mobile
+rm -rf node_modules package-lock.json
+npm install
+npx expo start -c
+```
+
+Requires **Node.js 20.19+**.
+
+### `TypeError: fetch failed` in the app
+
+The app cannot reach the API. On a **physical device**, `127.0.0.1` points to the phone itself — set your PC’s LAN IP in `mobile/.env`:
+
+```bash
+EXPO_PUBLIC_API_URL=http://192.168.1.x:8000
+```
+
+Ensure `make build` is running and your firewall allows port `8000`. Restart Expo with `npx expo start -c` after changing `.env`.
+
 ### `Cannot find module 'expo/config-plugins'`
 
 Usually a broken or partial install. From `mobile/`:
@@ -74,7 +98,7 @@ If it persists, ensure Node.js 20+ and run `npm install` again (do not use `npm 
 
 ### Expo warns about `@expo/vector-icons` version
 
-Pull latest code, then reinstall so the lockfile pins `14.0.4`:
+Reinstall dependencies after pulling SDK updates:
 
 ```bash
 rm -rf node_modules package-lock.json
