@@ -31,6 +31,7 @@
     "panelTitle": "Görünüm seç",
     "panelCopy": "WordPress'teki gibi site temasını anında değiştirin.",
     "active": "Aktif",
+    "siteDefault": "Site varsayılanı",
     "menuToggle": "Menüyü aç",
     "closeMenu": "Menüyü kapat",
     "poster": {
@@ -197,7 +198,12 @@
     "createEducation": "Eğitim oluştur",
     "createAnnouncement": "Duyuru oluştur",
     "educationCreated": "Eğitim oluşturuldu.",
-    "announcementCreated": "Duyuru oluşturuldu."
+    "announcementCreated": "Duyuru oluşturuldu.",
+    "defaultThemeTitle": "Site teması",
+    "defaultThemeCopy": "Ziyaretçiler için varsayılan görünüm. Tema seçiciden kendi temasını kaydeden kullanıcılar kişisel tercihlerini korur; diğer herkes bu varsayılanı görür.",
+    "defaultThemeLabel": "Varsayılan tema",
+    "saveDefaultTheme": "Varsayılan temayı kaydet",
+    "defaultThemeSaved": "Varsayılan site teması güncellendi."
   },
   "forms": {
     "fullName": "Ad soyad",

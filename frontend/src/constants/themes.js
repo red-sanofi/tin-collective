@@ -20,5 +20,7 @@ export const THEMES = {
 };
 
 export const THEME_IDS = Object.keys(THEMES);
-export const DEFAULT_THEME = "poster";
+export const DEFAULT_THEME = "gallery";
 export const THEME_STORAGE_KEY = "tin-theme";
+export const THEME_USER_OVERRIDE_KEY = "tin-theme-user-override";
+export const THEME_SITE_VERSION_KEY = "tin-theme-site-version";

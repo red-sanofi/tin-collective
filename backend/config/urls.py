@@ -12,4 +12,5 @@ urlpatterns = [
     path("announcements/", include("announcements.urls")),
     path("join/", include("joinus.urls")),
     path("social/", include("social.urls")),
+    path("site/", include("siteconfig.urls")),
 ]

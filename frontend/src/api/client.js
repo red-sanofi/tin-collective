@@ -90,4 +90,8 @@ export const api = {
   addSocialPost: (postUrl) =>
     request("/social/posts/", { method: "POST", body: JSON.stringify({ post_url: postUrl }) }),
   deleteSocialPost: (id) => request(`/social/posts/${id}/`, { method: "DELETE" }),
+
+  getSiteSettings: () => request("/site/settings/"),
+  updateSiteSettings: (payload) =>
+    request("/site/settings/", { method: "PATCH", body: JSON.stringify(payload) }),
 };

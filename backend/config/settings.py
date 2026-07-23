@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "announcements",
     "joinus",
     "social",
+    "siteconfig",
 ]
 
 SITE_ID = 1

@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-python manage.py makemigrations users educations announcements joinus social --noinput
+python manage.py makemigrations users educations announcements joinus social siteconfig --noinput
 python manage.py compilemessages
 python manage.py migrate --noinput
 python manage.py setup_oauth

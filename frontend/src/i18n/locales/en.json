@@ -31,6 +31,7 @@
     "panelTitle": "Choose appearance",
     "panelCopy": "Switch the site theme instantly, similar to WordPress.",
     "active": "Active",
+    "siteDefault": "Site default",
     "menuToggle": "Open menu",
     "closeMenu": "Close menu",
     "poster": {
@@ -198,7 +199,12 @@
     "createEducation": "Create education",
     "createAnnouncement": "Create announcement",
     "educationCreated": "Education created.",
-    "announcementCreated": "Announcement created."
+    "announcementCreated": "Announcement created.",
+    "defaultThemeTitle": "Site theme",
+    "defaultThemeCopy": "Default appearance for all visitors. Users who pick a theme in the switcher keep their personal choice; everyone else sees this default.",
+    "defaultThemeLabel": "Default theme",
+    "saveDefaultTheme": "Save default theme",
+    "defaultThemeSaved": "Default site theme updated."
   },
   "forms": {
     "fullName": "Full name",

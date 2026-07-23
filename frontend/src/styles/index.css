@@ -1033,6 +1033,20 @@ h3 {
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
+.admin-theme-panel {
+  margin-bottom: 1.5rem;
+}
+
+.admin-theme-copy {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  max-width: 62ch;
+}
+
+.admin-theme-form {
+  max-width: 28rem;
+}
+
 .card-date {
   font-family: var(--mono);
   font-size: 0.68rem;
@@ -1266,6 +1280,14 @@ h3 {
   color: var(--muted);
   font-size: 0.78rem;
   line-height: 1.4;
+}
+
+.theme-option-site-default {
+  color: var(--secondary);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .theme-option-badge {

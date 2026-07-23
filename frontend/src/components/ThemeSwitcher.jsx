@@ -4,7 +4,7 @@ import { useTheme } from "../context/ThemeContext";
 
 export default function ThemeSwitcher() {
   const { t } = useTranslation();
-  const { theme, themes, setTheme } = useTheme();
+  const { theme, themes, siteDefaultTheme, setTheme } = useTheme();
   const [open, setOpen] = useState(false);
 
   return (
@@ -43,6 +43,9 @@ export default function ThemeSwitcher() {
                 <span className="theme-option-body">
                   <strong>{t(item.labelKey)}</strong>
                   <small>{t(item.descriptionKey)}</small>
+                  {siteDefaultTheme === item.id && (
+                    <small className="theme-option-site-default">{t("themes.siteDefault")}</small>
+                  )}
                 </span>
                 {theme === item.id && <span className="theme-option-badge">{t("themes.active")}</span>}
               </button>

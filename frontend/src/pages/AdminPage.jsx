@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { api } from "../api/client";
 import FormField from "../components/FormField";
 import PageHero from "../components/PageHero";
+import { useTheme } from "../context/ThemeContext";
+import { THEMES } from "../constants/themes";
 import { translateApiError } from "../utils/i18nHelpers";
 
 const emptyEducation = {
@@ -28,10 +30,19 @@ const emptyAnnouncement = {
 
 export default function AdminPage() {
   const { t } = useTranslation();
+  const { applySiteDefaultTheme } = useTheme();
   const [educationForm, setEducationForm] = useState(emptyEducation);
   const [announcementForm, setAnnouncementForm] = useState(emptyAnnouncement);
+  const [defaultTheme, setDefaultTheme] = useState("gallery");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    api
+      .getSiteSettings()
+      .then((settings) => setDefaultTheme(settings.default_theme || "gallery"))
+      .catch(() => {});
+  }, []);
 
   function handleEducationChange(event) {
     const { name, value, type, checked } = event.target;
@@ -82,11 +93,29 @@ export default function AdminPage() {
     }
   }
 
+  async function saveDefaultTheme(event) {
+    event.preventDefault();
+    setMessage("");
+    setError("");
+    try {
+      const settings = await api.updateSiteSettings({ default_theme: defaultTheme });
+      applySiteDefaultTheme(settings);
+      setMessage(t("admin.defaultThemeSaved"));
+    } catch (err) {
+      setError(translateApiError(t, err));
+    }
+  }
+
   const deliveryModeOptions = [
     { value: "online", label: t("deliveryMode.online") },
     { value: "in_person", label: t("deliveryMode.in_person") },
     { value: "hybrid", label: t("deliveryMode.hybrid") },
   ];
+
+  const themeOptions = Object.values(THEMES).map((item) => ({
+    value: item.id,
+    label: t(item.labelKey),
+  }));
 
   return (
     <div className="page-readable">
@@ -94,6 +123,24 @@ export default function AdminPage() {
 
       {message && <div className="alert alert-success">{message}</div>}
       {error && <div className="alert alert-error">{error}</div>}
+
+      <section className="panel admin-theme-panel">
+        <h2>{t("admin.defaultThemeTitle")}</h2>
+        <p className="admin-theme-copy">{t("admin.defaultThemeCopy")}</p>
+        <form className="stack-form admin-theme-form" onSubmit={saveDefaultTheme}>
+          <FormField
+            label={t("admin.defaultThemeLabel")}
+            name="default_theme"
+            as="select"
+            value={defaultTheme}
+            onChange={(event) => setDefaultTheme(event.target.value)}
+            options={themeOptions}
+          />
+          <button type="submit" className="btn btn-primary">
+            {t("admin.saveDefaultTheme")}
+          </button>
+        </form>
+      </section>
 
       <div className="admin-grid">
         <section className="panel">

@@ -12,6 +12,7 @@ def api_root(_request):
                 "announcements": "/announcements/",
                 "join": "/join/",
                 "social": "/social/",
+                "site": "/site/",
                 "admin": "/admin/",
             },
         }
