@@ -2,6 +2,32 @@
 
 Host **nginx** (TLS + routing) runs on the VM. **Docker Compose** runs the app.
 
+## One command
+
+Run this on the server whenever you pull changes or need to fix the stack:
+
+```bash
+cd ~/tin-collective && git pull && bash deploy/production.sh
+```
+
+Equivalent:
+
+```bash
+make production
+```
+
+This single script:
+
+1. Creates `.env` from `.env.production.example` if missing
+2. Applies production domain settings (`tinkolektif.org`, `api.tinkolektif.org`, …)
+3. Installs host nginx configs from `deploy/nginx/`
+4. Builds and starts `docker-compose.prod.yml`
+5. Waits for the backend to finish migrations and boot gunicorn
+6. Runs `collectstatic`
+7. Runs the full health check (`deploy/check-site.sh`)
+
+If anything fails, read the output — backend logs are printed automatically when the wait step times out.
+
 ## Domains
 
 | URL | Service | Docker port |
@@ -10,54 +36,28 @@ Host **nginx** (TLS + routing) runs on the VM. **Docker Compose** runs the app.
 | https://api.tinkolektif.org | Django API (no `/api` prefix) | `127.0.0.1:8000` |
 | https://admin.tinkolektif.org/admin/ | Django admin | `127.0.0.1:8000` |
 
-## One command — fix everything
-
-Run on the server after `git pull`:
+## First-time server setup
 
 ```bash
-cd ~/tin-collective && git pull && bash deploy/fix-production.sh
-```
-
-This updates `.env`, installs host nginx configs, rebuilds Docker, runs `collectstatic`, and health-checks the site.
-
-## Step by step
-
-### 1. Environment
-
-```bash
+git clone https://github.com/red-sanofi/tin-collective.git
+cd tin-collective
 cp .env.production.example .env
-# edit secrets: DJANGO_SECRET_KEY, POSTGRES_PASSWORD, OAuth keys
+# Edit .env — set DJANGO_SECRET_KEY and POSTGRES_PASSWORD
+bash deploy/production.sh
 ```
 
-### 2. Docker (production compose)
-
-```bash
-docker compose -f docker-compose.prod.yml up --build -d
-```
-
-### 3. Host nginx (outside Docker)
-
-```bash
-bash deploy/install-nginx.sh
-```
-
-Configs live in `deploy/nginx/`. See [deploy/nginx/README.md](nginx/README.md) for the admin static CSS fix.
-
-### 4. Verify
-
-```bash
-bash deploy/check-site.sh
-bash deploy/diagnose-admin.sh
-```
+TLS certificates (Certbot) must exist at `/etc/letsencrypt/live/tinkolektif.org/` before nginx reload succeeds.
 
 ## Scripts
 
 | Script | Purpose |
 |--------|---------|
-| `deploy/fix-production.sh` | Full fix: env + nginx + docker + checks |
+| **`deploy/production.sh`** | **Main one-command deploy (use this)** |
+| `deploy/fix-production.sh` | Alias for `production.sh` |
+| `deploy/check-site.sh` | Health check only |
+| `deploy/wait-for-backend.sh` | Wait for gunicorn on `:8000` |
 | `deploy/install-nginx.sh` | Install host nginx configs only |
-| `deploy/check-site.sh` | Full health check |
-| `deploy/diagnose-admin.sh` | Admin static file routing debug |
+| `deploy/diagnose-admin.sh` | Admin static file debug |
 
 ## OAuth redirect URIs
 
@@ -66,18 +66,41 @@ bash deploy/diagnose-admin.sh
 
 ## Troubleshooting
 
-### Admin page has no CSS (static returns 302)
+### Checks fail with `000` right after deploy
+
+The backend may still be starting. Wait and re-check:
+
+```bash
+bash deploy/wait-for-backend.sh
+bash deploy/check-site.sh
+```
+
+Or run the full deploy again:
+
+```bash
+bash deploy/production.sh
+```
+
+### Admin page has no CSS
 
 ```bash
 bash deploy/diagnose-admin.sh
 bash deploy/install-nginx.sh
+curl -I http://127.0.0.1:8000/static/admin/css/base.css
+curl -I https://admin.tinkolektif.org/static/admin/css/base.css
 ```
 
-Direct backend should return 200:
+Both should return `200`.
+
+### Frontend loads but lists are empty
 
 ```bash
-curl -I http://127.0.0.1:8000/static/admin/css/base.css
+grep VITE_API_URL .env
+docker compose -f docker-compose.prod.yml up --build -d frontend
+bash deploy/check-site.sh
 ```
+
+`VITE_API_URL` must be `https://api.tinkolektif.org`.
 
 ### 502 Bad Gateway
 
@@ -85,13 +108,7 @@ curl -I http://127.0.0.1:8000/static/admin/css/base.css
 docker compose -f docker-compose.prod.yml ps
 curl http://127.0.0.1:8000/
 curl http://127.0.0.1:8080/
+docker compose -f docker-compose.prod.yml logs backend --tail 50
 ```
 
-### Frontend empty / loading forever
-
-Rebuild frontend with correct API URL:
-
-```bash
-grep VITE_API_URL .env   # must be https://api.tinkolektif.org
-docker compose -f docker-compose.prod.yml up --build -d frontend
-```
+See also [deploy/nginx/README.md](nginx/README.md).

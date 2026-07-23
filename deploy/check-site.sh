@@ -101,11 +101,13 @@ else
   fail "docker compose -f $COMPOSE_FILE ps failed"
 fi
 
-section "Backend readiness"
-if bash deploy/wait-for-backend.sh; then
-  pass "backend responded on $LOCAL_API"
-else
-  fail "backend not ready — see logs above; checks below may fail"
+if [ "${SKIP_BACKEND_WAIT:-}" != "1" ]; then
+  section "Backend readiness"
+  if bash deploy/wait-for-backend.sh; then
+    pass "backend responded on $LOCAL_API"
+  else
+    fail "backend not ready — see logs above; checks below may fail"
+  fi
 fi
 
 section "Local Docker ports"
@@ -225,8 +227,9 @@ fi
 section "Summary"
 echo "Passed: $PASS  Warnings: $WARN  Failed: $FAIL"
 if [ "$FAIL" -gt 0 ]; then
-  red "Fix failed checks, then run:"
-  echo "  docker compose -f docker-compose.prod.yml up --build -d"
+  red "Some checks failed."
+  echo "  bash deploy/production.sh     # full redeploy + fix"
+  echo "  bash deploy/wait-for-backend.sh && bash deploy/check-site.sh"
   exit 1
 fi
 if [ "$WARN" -gt 0 ]; then

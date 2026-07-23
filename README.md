@@ -81,6 +81,8 @@ Use the admin account to access:
 | `make ps` | Show container status |
 | `make clean` | Stop containers and delete database volume |
 | `make prod` | Run production-like stack on http://localhost:8080 |
+| `make production` | **Server:** deploy tinkolektif.org (one command) |
+| `make deploy-check` | **Server:** run health checks only |
 | `make check` | Verify Docker is ready |
 | `make help` | Show all commands |
 
@@ -214,6 +216,38 @@ Then open http://localhost:8080
 
 This uses nginx for the frontend and the same Django/PostgreSQL services.
 
+## Production server (tinkolektif.org)
+
+Host nginx runs **outside Docker**. The app runs with `docker-compose.prod.yml`.
+
+**One command** on the server after each `git pull`:
+
+```bash
+cd ~/tin-collective && git pull && bash deploy/production.sh
+```
+
+Or:
+
+```bash
+make production
+```
+
+| URL | Purpose |
+|-----|---------|
+| https://tinkolektif.org | Public site |
+| https://api.tinkolektif.org/ | REST API (no `/api` prefix) |
+| https://admin.tinkolektif.org/admin/ | Django admin |
+
+First-time setup: copy `.env.production.example` to `.env`, set secrets, then run the command above.
+
+Full guide: [deploy/README.md](deploy/README.md)
+
+Re-run health checks anytime:
+
+```bash
+bash deploy/check-site.sh
+```
+
 ## Troubleshooting
 
 ### `Docker is not running`
@@ -233,6 +267,21 @@ Use PowerShell instead:
 ```
 
 Or run commands from **Git Bash**, which includes `make` in many installations.
+
+### Production checks fail with `000` or backend not ready
+
+The backend takes up to ~3 minutes on first boot (migrations + seed). Run:
+
+```bash
+bash deploy/wait-for-backend.sh
+bash deploy/check-site.sh
+```
+
+Or redeploy everything:
+
+```bash
+bash deploy/production.sh
+```
 
 ### `DisallowedHost` on server IP or domain
 
@@ -300,11 +349,16 @@ make build
 Base URL locally: `http://localhost:8000/`  
 Production: `https://api.tinkolektif.org/`
 
-## Cloud deployment notes
+## Cloud deployment
 
-- Full guide: [deploy/README.md](deploy/README.md)
-- One-command server fix: `bash deploy/fix-production.sh`
-- Host nginx configs: [deploy/nginx/](deploy/nginx/)
+See [deploy/README.md](deploy/README.md). Summary:
+
+```bash
+git clone https://github.com/red-sanofi/tin-collective.git
+cd tin-collective
+cp .env.production.example .env   # edit secrets
+bash deploy/production.sh
+```
 
 ## Contributing
 
