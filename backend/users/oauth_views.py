@@ -30,7 +30,7 @@ class OAuthProvidersView(APIView):
                 {
                     "id": app.provider,
                     "name": PROVIDER_LABELS.get(app.provider, app.name),
-                    "login_url": f"{backend_base}/api/auth/social/{app.provider}/login/",
+                    "login_url": f"{backend_base}/auth/social/{app.provider}/login/",
                 }
             )
 

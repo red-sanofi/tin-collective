@@ -19,16 +19,18 @@ services:
     environment:
       DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-change-me-in-production}
       DJANGO_DEBUG: ${DJANGO_DEBUG:-false}
-      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,backend}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1,backend,tinkolektif.org,www.tinkolektif.org,api.tinkolektif.org,admin.tinkolektif.org}
       POSTGRES_DB: ${POSTGRES_DB:-tin_collective}
       POSTGRES_USER: ${POSTGRES_USER:-tin_collective}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tin_collective}
       POSTGRES_HOST: db
       POSTGRES_PORT: 5432
-      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost}
-      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:8080}
-      BACKEND_PUBLIC_URL: ${BACKEND_PUBLIC_URL:-http://localhost:8080}
-      SITE_DOMAIN: ${SITE_DOMAIN:-localhost}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-https://tinkolektif.org,https://www.tinkolektif.org}
+      CSRF_TRUSTED_ORIGINS: ${CSRF_TRUSTED_ORIGINS:-https://admin.tinkolektif.org}
+      FRONTEND_URL: ${FRONTEND_URL:-https://tinkolektif.org}
+      BACKEND_PUBLIC_URL: ${BACKEND_PUBLIC_URL:-https://api.tinkolektif.org}
+      SITE_DOMAIN: ${SITE_DOMAIN:-tinkolektif.org}
+      API_SITE_DOMAIN: ${API_SITE_DOMAIN:-api.tinkolektif.org}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
       GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
@@ -39,13 +41,15 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    ports:
+      - "8000:8000"
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod
       args:
-        VITE_API_URL: /api
+        VITE_API_URL: ${VITE_API_URL:-https://api.tinkolektif.org}
     depends_on:
       - backend
     ports:

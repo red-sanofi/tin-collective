@@ -119,6 +119,13 @@ CORS_ALLOWED_ORIGINS = [
 ]
 CORS_ALLOW_CREDENTIALS = True
 
+_extra_csrf_origins = [
+    origin.strip()
+    for origin in os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(",")
+    if origin.strip()
+]
+CSRF_TRUSTED_ORIGINS = list(dict.fromkeys(CORS_ALLOWED_ORIGINS + _extra_csrf_origins))
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
@@ -136,12 +143,16 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": True,
 }
 
-CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
-
 FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:5173")
 BACKEND_PUBLIC_URL = os.environ.get("BACKEND_PUBLIC_URL", "http://localhost:8000")
 
-LOGIN_REDIRECT_URL = "/api/auth/oauth/callback/"
+LOGIN_REDIRECT_URL = "/auth/oauth/callback/"
+
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    USE_X_FORWARDED_HOST = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 ACCOUNT_LOGOUT_REDIRECT_URL = FRONTEND_URL
 ACCOUNT_LOGIN_METHODS = {"username", "email"}
 ACCOUNT_SIGNUP_FIELDS = ["email*", "username*", "password1*", "password2*"]

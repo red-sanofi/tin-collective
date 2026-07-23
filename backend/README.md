@@ -39,7 +39,8 @@ python manage.py seed_demo
 python manage.py runserver 0.0.0.0:8000
 ```
 
-API base URL: http://localhost:8000/api/
+API base URL: http://localhost:8000/  
+Production: https://api.tinkolektif.org/
 
 ## Useful commands
 
@@ -61,7 +62,7 @@ python manage.py createsuperuser
 
 ## Admin
 
-Django admin is available at `/admin`.
+Django admin is available at `/admin` (production: https://admin.tinkolektif.org/admin/).
 
 Default seeded admin:
 
@@ -72,13 +73,13 @@ Default seeded admin:
 
 | Method | Path | Access |
 |--------|------|--------|
-| POST | `/api/auth/register/` | Public |
-| POST | `/api/auth/login/` | Public |
-| GET | `/api/auth/oauth/providers/` | Public |
-| GET | `/api/auth/social/{provider}/login/` | Public (starts OAuth) |
-| GET | `/api/auth/oauth/callback/` | OAuth JWT handoff |
-| GET | `/api/auth/me/` | Authenticated |
-| GET/POST | `/api/educations/` | Read public, write staff |
-| POST/DELETE | `/api/educations/{slug}/register/` | Authenticated |
-| GET/POST | `/api/announcements/` | Read public, write staff |
-| POST | `/api/join/` | Public |
+| POST | `/auth/register/` | Public |
+| POST | `/auth/login/` | Public |
+| GET | `/auth/oauth/providers/` | Public |
+| GET | `/auth/social/{provider}/login/` | Public (starts OAuth) |
+| GET | `/auth/oauth/callback/` | OAuth JWT handoff |
+| GET | `/auth/me/` | Authenticated |
+| GET/POST | `/educations/` | Read public, write staff |
+| POST/DELETE | `/educations/{slug}/register/` | Authenticated |
+| GET/POST | `/announcements/` | Read public, write staff |
+| POST | `/join/` | Public |

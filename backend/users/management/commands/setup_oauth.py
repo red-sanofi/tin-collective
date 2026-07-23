@@ -13,7 +13,10 @@ class Command(BaseCommand):
         site, _ = Site.objects.update_or_create(
             id=settings.SITE_ID,
             defaults={
-                "domain": os.environ.get("SITE_DOMAIN", "localhost:8000"),
+                "domain": os.environ.get(
+                    "API_SITE_DOMAIN",
+                    os.environ.get("SITE_DOMAIN", "localhost:8000"),
+                ),
                 "name": "Tin Kolektif",
             },
         )

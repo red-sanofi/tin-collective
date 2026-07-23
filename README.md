@@ -32,9 +32,12 @@ When containers are ready, open:
 
 | Service | URL |
 |---------|-----|
-| App | http://localhost:5173 |
-| API | http://localhost:8000/api/ |
+| App | http://localhost:8080 |
+| API | http://localhost:8000/ |
 | Django admin | http://localhost:8000/admin/ |
+| Production site | https://tinkolektif.org |
+| Production API | https://api.tinkolektif.org/ |
+| Production admin | https://admin.tinkolektif.org/admin/ |
 
 Stop the stack with:
 
@@ -98,9 +101,9 @@ docker compose up --build
 
 | Service | Port | Description |
 |---------|------|-------------|
-| `frontend` | 5173 | React SPA (Vite dev server) |
+| `frontend` | 8080 → 5173 | React SPA (Vite dev server) |
 | `backend` | 8000 | Django REST API |
-| `db` | 5432 | PostgreSQL database |
+| `db` | internal | PostgreSQL database |
 
 On first startup the backend will:
 
@@ -152,14 +155,16 @@ BACKEND_PUBLIC_URL=http://localhost:8000
 
 1. Create an OAuth client (Web application)
 2. **Authorized redirect URI:**
-   `http://localhost:8000/api/auth/social/google/login/callback/`
+   `http://localhost:8000/auth/social/google/login/callback/`
+   Production: `https://api.tinkolektif.org/auth/social/google/login/callback/`
 3. Paste client ID/secret into `.env`
 
 ### 3. GitHub Developer Settings
 
 1. New OAuth App
 2. **Authorization callback URL:**
-   `http://localhost:8000/api/auth/social/github/login/callback/`
+   `http://localhost:8000/auth/social/github/login/callback/`
+   Production: `https://api.tinkolektif.org/auth/social/github/login/callback/`
 3. Paste client ID/secret into `.env`
 
 ### 4. Restart backend
@@ -187,7 +192,9 @@ frontend/                 React SPA
 scripts/setup.sh          Automation for macOS/Linux/Git Bash
 scripts/setup.ps1         Automation for Windows PowerShell
 docker-compose.yml        Local development stack
-docker-compose.prod.yml   Production-like stack
+docker-compose.prod.yml   Production stack for tinkolektif.org
+deploy/                   Host nginx configs + production guide
+.env.production.example   Production env template
 Makefile                  Short commands for daily use
 .env.example              Environment template copied to .env on first run
 ```
@@ -229,21 +236,20 @@ Or run commands from **Git Bash**, which includes `make` in many installations.
 
 ### `DisallowedHost` on server IP or domain
 
-Django blocks requests when the host is not listed in `DJANGO_ALLOWED_HOSTS`. On your server `.env`, add your public IP or domain:
+Django blocks requests when the host is not listed in `DJANGO_ALLOWED_HOSTS`. On your server `.env`:
 
 ```bash
-DJANGO_ALLOWED_HOSTS=157.230.2.58,localhost,127.0.0.1,backend
-CORS_ALLOWED_ORIGINS=http://157.230.2.58:5173
-FRONTEND_URL=http://157.230.2.58:5173
-BACKEND_PUBLIC_URL=http://157.230.2.58:8000
-SITE_DOMAIN=157.230.2.58:8000
+DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,backend,tinkolektif.org,www.tinkolektif.org,api.tinkolektif.org,admin.tinkolektif.org
+CORS_ALLOWED_ORIGINS=https://tinkolektif.org,https://www.tinkolektif.org
+CSRF_TRUSTED_ORIGINS=https://admin.tinkolektif.org
+FRONTEND_URL=https://tinkolektif.org
+BACKEND_PUBLIC_URL=https://api.tinkolektif.org
+SITE_DOMAIN=tinkolektif.org
+API_SITE_DOMAIN=api.tinkolektif.org
+VITE_API_URL=https://api.tinkolektif.org
 ```
 
-Then restart:
-
-```bash
-docker compose up --build -d backend
-```
+See [deploy/README.md](deploy/README.md) for full production setup.
 
 ### Reset everything
 
@@ -283,20 +289,25 @@ make build
 
 | Endpoint | Description |
 |----------|-------------|
-| `POST /api/auth/register/` | Create account |
-| `POST /api/auth/login/` | JWT login |
-| `GET /api/auth/me/` | Current user |
-| `GET /api/educations/` | List educations |
-| `POST /api/educations/{slug}/register/` | Register for education |
-| `GET /api/announcements/` | List announcements |
-| `POST /api/join/` | Submit join application |
+| `POST /auth/register/` | Create account |
+| `POST /auth/login/` | JWT login |
+| `GET /auth/me/` | Current user |
+| `GET /educations/` | List educations |
+| `POST /educations/{slug}/register/` | Register for education |
+| `GET /announcements/` | List announcements |
+| `POST /join/` | Submit join application |
+
+Base URL locally: `http://localhost:8000/`  
+Production: `https://api.tinkolektif.org/`
 
 ## Cloud deployment notes
 
-- Use `docker-compose.prod.yml` as a base for cloud VMs or container services
+- Use `docker-compose.prod.yml` on the production VM
+- Copy `.env.production.example` to `.env` and set secrets
+- Install host nginx configs from `deploy/nginx/` (see [deploy/README.md](deploy/README.md))
+- Domains: `tinkolektif.org`, `api.tinkolektif.org`, `admin.tinkolektif.org`
 - Set strong values for `DJANGO_SECRET_KEY`, database credentials, and `DJANGO_DEBUG=false`
-- Put TLS termination in front of the frontend/nginx service
-- Point `CORS_ALLOWED_ORIGINS` and `DJANGO_ALLOWED_HOSTS` to your domain
+- Rebuild frontend after changing `VITE_API_URL`
 
 ## Contributing
 

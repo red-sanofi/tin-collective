@@ -1,16 +1,22 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
+const apiProxyTarget = process.env.VITE_API_PROXY_TARGET || "http://backend:8000";
+const apiPaths = ["/auth", "/educations", "/announcements", "/join", "/social"];
+
 export default defineConfig({
   plugins: [react()],
   server: {
     host: "0.0.0.0",
     port: 5173,
-    proxy: {
-      "/api": {
-        target: process.env.VITE_API_PROXY_TARGET || "http://backend:8000",
-        changeOrigin: true,
-      },
-    },
+    proxy: Object.fromEntries(
+      apiPaths.map((path) => [
+        path,
+        {
+          target: apiProxyTarget,
+          changeOrigin: true,
+        },
+      ]),
+    ),
   },
 });

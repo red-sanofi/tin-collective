@@ -1,12 +1,15 @@
 from django.contrib import admin
 from django.urls import include, path
 
+from .views import api_root
+
 urlpatterns = [
+    path("", api_root),
     path("admin/", admin.site.urls),
-    path("api/auth/social/", include("allauth.urls")),
-    path("api/auth/", include("users.urls")),
-    path("api/educations/", include("educations.urls")),
-    path("api/announcements/", include("announcements.urls")),
-    path("api/join/", include("joinus.urls")),
-    path("api/social/", include("social.urls")),
+    path("auth/social/", include("allauth.urls")),
+    path("auth/", include("users.urls")),
+    path("educations/", include("educations.urls")),
+    path("announcements/", include("announcements.urls")),
+    path("join/", include("joinus.urls")),
+    path("social/", include("social.urls")),
 ]
