@@ -57,6 +57,7 @@ TLS certificates (Certbot) must exist at `/etc/letsencrypt/live/tinkolektif.org/
 | `deploy/check-site.sh` | Health check only |
 | `deploy/wait-for-backend.sh` | Wait for gunicorn on `:8000` |
 | `deploy/install-nginx.sh` | Install host nginx configs only |
+| `deploy/diagnose-public.sh` | DNS / nginx / SSL for api + admin subdomains |
 | `deploy/diagnose-admin.sh` | Admin static file debug |
 
 ## OAuth redirect URIs
@@ -65,6 +66,33 @@ TLS certificates (Certbot) must exist at `/etc/letsencrypt/live/tinkolektif.org/
 - `https://api.tinkolektif.org/auth/social/github/login/callback/`
 
 ## Troubleshooting
+
+### Local Docker OK but api/admin show `000` (connection failed)
+
+Docker and the main site work, but `https://api.tinkolektif.org` or `https://admin.tinkolektif.org` fail. This is almost always **host nginx or TLS**, not Django.
+
+Run diagnostics on the server:
+
+```bash
+bash deploy/diagnose-public.sh
+```
+
+Typical fixes:
+
+```bash
+# 1. Install api + admin nginx site configs
+bash deploy/install-nginx.sh
+
+# 2. Expand Let's Encrypt cert to include subdomains (if cert lacks api/admin SANs)
+sudo certbot certonly --nginx \
+  -d tinkolektif.org -d www.tinkolektif.org \
+  -d api.tinkolektif.org -d admin.tinkolektif.org
+
+sudo systemctl reload nginx
+bash deploy/check-site.sh
+```
+
+Ensure DNS **A records** exist for `api.tinkolektif.org` and `admin.tinkolektif.org` pointing to this server (same IP as `tinkolektif.org`).
 
 ### Checks fail with `000` right after deploy
 

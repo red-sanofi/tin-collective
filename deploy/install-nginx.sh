@@ -41,5 +41,6 @@ echo "Reloading nginx..."
 sudo systemctl reload nginx
 
 echo "Done. Verify with:"
+echo "  bash deploy/diagnose-public.sh"
 echo "  bash deploy/diagnose-admin.sh"
 echo "  bash deploy/check-site.sh"

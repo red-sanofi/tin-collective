@@ -51,9 +51,26 @@ location / {
 }
 ```
 
+## TLS certificate
+
+All vhosts share `/etc/letsencrypt/live/tinkolektif.org/`. The certificate must include **SANs** for:
+
+- `tinkolektif.org`, `www.tinkolektif.org`
+- `api.tinkolektif.org`, `admin.tinkolektif.org`
+
+If the cert was issued before the subdomains existed, HTTPS to api/admin fails (curl shows `000`).
+
+```bash
+sudo certbot certonly --nginx \
+  -d tinkolektif.org -d www.tinkolektif.org \
+  -d api.tinkolektif.org -d admin.tinkolektif.org
+sudo systemctl reload nginx
+```
+
 ## Verify
 
 ```bash
+bash deploy/diagnose-public.sh
 bash deploy/diagnose-admin.sh
 bash deploy/check-site.sh
 ```

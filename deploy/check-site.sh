@@ -4,6 +4,7 @@ set -u
 
 ROOT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
 cd "$ROOT_DIR"
+. "$ROOT_DIR/deploy/lib/curl-http.sh"
 
 COMPOSE_FILE="${COMPOSE_FILE:-docker-compose.prod.yml}"
 FRONTEND_URL="${FRONTEND_URL:-https://tinkolektif.org}"
@@ -11,6 +12,8 @@ API_URL="${API_URL:-https://api.tinkolektif.org}"
 ADMIN_URL="${ADMIN_URL:-https://admin.tinkolektif.org}"
 LOCAL_API="${LOCAL_API:-http://127.0.0.1:8000}"
 LOCAL_FRONTEND="${LOCAL_FRONTEND:-http://127.0.0.1:8080}"
+API_HOST="${API_HOST:-api.tinkolektif.org}"
+ADMIN_HOST="${ADMIN_HOST:-admin.tinkolektif.org}"
 
 PASS=0
 WARN=0
@@ -28,7 +31,7 @@ fail() { FAIL=$((FAIL + 1)); red "FAIL  $1"; }
 explain_code() {
   code="$1"
   case "$code" in
-    000) printf ' (connection failed — backend still starting, nginx down, or DNS/SSL issue)' ;;
+    000) printf ' (connection failed — DNS, SSL cert, or nginx site missing)' ;;
     502) printf ' (nginx cannot reach backend on 127.0.0.1:8000)' ;;
     503) printf ' (service unavailable)' ;;
   esac
@@ -40,25 +43,6 @@ check_cmd() {
   else
     fail "$1 is missing"
   fi
-}
-
-http_code() {
-  curl -sS -o /dev/null -w "%{http_code}" --max-time "${2:-12}" "$1" 2>/dev/null || echo "000"
-}
-
-http_code_with_origin() {
-  curl -sS -o /dev/null -w "%{http_code}" --max-time "${3:-12}" \
-    -H "Origin: ${2}" "$1" 2>/dev/null || echo "000"
-}
-
-body_contains() {
-  curl -sS --max-time "${3:-12}" "$1" 2>/dev/null | grep -q "$2"
-}
-
-header_value() {
-  curl -sSI --max-time "${3:-12}" -H "Origin: ${4:-}" "$1" 2>/dev/null \
-    | tr -d '\r' \
-    | awk -F': ' "tolower(\$1)==tolower(\"$2\") {print \$2; exit}"
 }
 
 section "Environment"
@@ -127,36 +111,72 @@ check_local backend "$LOCAL_API/" 200
 check_local "backend educations" "$LOCAL_API/educations/" 200
 check_local frontend "$LOCAL_FRONTEND/" 200
 
+section "DNS + nginx"
+for host in tinkolektif.org "$API_HOST" "$ADMIN_HOST"; do
+  ip="$(resolve_host "$host")"
+  if [ -n "$ip" ] && [ "$ip" != "unknown" ]; then
+    pass "DNS $host -> $ip"
+  else
+    fail "DNS lookup failed for $host"
+  fi
+done
+
+if [ -L "/etc/nginx/sites-enabled/api.tinkolektif.org.conf" ] || [ -f "/etc/nginx/sites-enabled/api.tinkolektif.org.conf" ]; then
+  pass "nginx api site enabled"
+else
+  fail "nginx api site missing — run: bash deploy/install-nginx.sh"
+fi
+
+if [ -L "/etc/nginx/sites-enabled/admin.tinkolektif.org.conf" ] || [ -f "/etc/nginx/sites-enabled/admin.tinkolektif.org.conf" ]; then
+  pass "nginx admin site enabled"
+else
+  fail "nginx admin site missing — run: bash deploy/install-nginx.sh"
+fi
+
+api_local_code="$(http_code_with_headers "https://${API_HOST}/" 12 --resolve "${API_HOST}:443:127.0.0.1" -k)"
+if [ "$api_local_code" = "200" ]; then
+  pass "nginx routes api locally ($api_local_code)"
+else
+  fail "nginx api local route (expected 200, got $api_local_code) — run: bash deploy/install-nginx.sh"
+fi
+
+admin_local_code="$(http_code_with_headers "https://${ADMIN_HOST}/admin/" 12 --resolve "${ADMIN_HOST}:443:127.0.0.1" -k)"
+if [ "$admin_local_code" = "200" ] || [ "$admin_local_code" = "302" ]; then
+  pass "nginx routes admin locally ($admin_local_code)"
+else
+  fail "nginx admin local route (expected 200/302, got $admin_local_code)"
+fi
+
 section "Public API ($API_URL)"
-code="$(http_code "$API_URL/")"
+code="$(http_code "${API_URL}/")"
 if [ "$code" = "200" ]; then
   pass "API root $API_URL/ ($code)"
 else
   fail "API root $API_URL/ (expected 200, got $code)$(explain_code "$code")"
 fi
 
-if body_contains "$API_URL/" "Tin Kolektif API"; then
+if body_contains "${API_URL}/" "Tin Kolektif API"; then
   pass "API root JSON looks correct"
 else
   fail "API root JSON missing expected content"
 fi
 
-code="$(http_code "$API_URL/educations/")"
+code="$(http_code "${API_URL}/educations/")"
 if [ "$code" = "200" ]; then
   pass "API educations ($code)"
 else
   fail "API educations (expected 200, got $code)"
 fi
 
-code="$(http_code "$API_URL/announcements/")"
+code="$(http_code "${API_URL}/announcements/")"
 if [ "$code" = "200" ]; then
   pass "API announcements ($code)"
 else
   fail "API announcements (expected 200, got $code)"
 fi
 
-code="$(http_code_with_origin "$API_URL/educations/" "$FRONTEND_URL")"
-cors="$(header_value "$API_URL/educations/" "access-control-allow-origin" 12 "$FRONTEND_URL")"
+code="$(http_code_with_headers "${API_URL}/educations/" 12 -H "Origin: ${FRONTEND_URL}")"
+cors="$(header_value "${API_URL}/educations/" "access-control-allow-origin" 12 -H "Origin: ${FRONTEND_URL}")"
 if [ "$code" = "200" ]; then
   pass "API educations with browser Origin ($code)"
 else
@@ -168,7 +188,7 @@ else
   warn "CORS header missing — frontend may fail to load data"
 fi
 
-code="$(http_code "$FRONTEND_URL/api/educations/")"
+code="$(http_code "${FRONTEND_URL}/api/educations/")"
 if [ "$code" = "404" ]; then
   pass "old path $FRONTEND_URL/api/... is not used ($code)"
 elif [ "$code" = "502" ]; then
@@ -178,14 +198,14 @@ else
 fi
 
 section "Public frontend ($FRONTEND_URL)"
-code="$(http_code "$FRONTEND_URL/")"
+code="$(http_code "${FRONTEND_URL}/")"
 if [ "$code" = "200" ]; then
   pass "frontend home ($code)"
 else
   fail "frontend home (expected 200, got $code)"
 fi
 
-html="$(curl -sS --max-time 12 "$FRONTEND_URL/" 2>/dev/null || true)"
+html="$(curl -sS --max-time 12 "${FRONTEND_URL}/" 2>/dev/null || true)"
 if printf '%s' "$html" | grep -q 'assets/index-'; then
   pass "frontend serves built JS bundle"
   asset="$(printf '%s' "$html" | sed -n 's|.*src="\(/assets/index-[^"]*\.js\)".*|\1|p' | head -n 1)"
@@ -206,16 +226,16 @@ else
 fi
 
 section "Admin + static ($ADMIN_URL)"
-code="$(http_code "$ADMIN_URL/admin/")"
+code="$(http_code "${ADMIN_URL}/admin/")"
 if [ "$code" = "200" ] || [ "$code" = "302" ]; then
   pass "admin login page ($code)"
 else
   fail "admin login page (expected 200/302, got $code)"
 fi
 
-code="$(http_code "$ADMIN_URL/static/admin/css/base.css")"
-static_location="$(header_value "$ADMIN_URL/static/admin/css/base.css" "location")"
-api_static_code="$(http_code "$API_URL/static/admin/css/base.css")"
+code="$(http_code "${ADMIN_URL}/static/admin/css/base.css")"
+static_location="$(header_value "${ADMIN_URL}/static/admin/css/base.css" "location")"
+api_static_code="$(http_code "${API_URL}/static/admin/css/base.css")"
 if [ "$code" = "200" ]; then
   pass "admin static CSS ($code)"
 elif [ "$api_static_code" = "200" ]; then
@@ -228,8 +248,9 @@ section "Summary"
 echo "Passed: $PASS  Warnings: $WARN  Failed: $FAIL"
 if [ "$FAIL" -gt 0 ]; then
   red "Some checks failed."
-  echo "  bash deploy/production.sh     # full redeploy + fix"
-  echo "  bash deploy/wait-for-backend.sh && bash deploy/check-site.sh"
+  echo "  bash deploy/diagnose-public.sh   # DNS / nginx / SSL details"
+  echo "  bash deploy/install-nginx.sh"
+  echo "  bash deploy/production.sh"
   exit 1
 fi
 if [ "$WARN" -gt 0 ]; then
