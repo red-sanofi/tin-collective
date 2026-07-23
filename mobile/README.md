@@ -72,6 +72,33 @@ npm start
 
 If it persists, ensure Node.js 20+ and run `npm install` again (do not use `npm install --omit=dev` — `babel-preset-expo` is required).
 
+### Expo warns about `@expo/vector-icons` version
+
+Pull latest code, then reinstall so the lockfile pins `14.0.4`:
+
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+### `xcrun simctl` / exit code 72 (iOS Simulator)
+
+Metro can still run — use **Expo Go** on your phone (scan the QR code) without a simulator.
+
+To fix the iOS Simulator on macOS:
+
+1. Install **Xcode** from the App Store (not only Command Line Tools).
+2. Open Xcode once and finish setup / license.
+3. Point the active developer directory:
+
+```bash
+sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+sudo xcodebuild -license accept
+xcrun simctl list
+```
+
+If `simctl list` works, press `i` in the Expo terminal again.
+
 ## Production builds
 
 ```bash
