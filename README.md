@@ -2,7 +2,7 @@
 
 Interactive web and mobile platform for Tin Kolektif: educations, announcements, user accounts, and join-us applications.
 
-**Production:** https://tinkolektif.org · **API:** https://api.tinkolektif.org/ · **Config reference:** [docs/URLS-AND-CONFIG.md](docs/URLS-AND-CONFIG.md)
+**Production:** https://tinkolektif.org · **API:** https://api.tinkolektif.org/ · **Docs:** [docs/PRODUCTION.md](docs/PRODUCTION.md) · [docs/URLS-AND-CONFIG.md](docs/URLS-AND-CONFIG.md)
 
 ## One-command start
 
@@ -130,20 +130,28 @@ On first startup the backend will:
 
 ## Mobile app
 
-A React Native app lives in [`mobile/`](mobile/). It connects to the same API as the web frontend.
+Expo **SDK 54** app in [`mobile/`](mobile/). Uses the same API as the web site.
+
+**Against production** (no local Docker needed):
 
 ```bash
-# Start the API first (Docker)
-make build
-
-# In another terminal
 cd mobile
-cp .env.example .env
+echo 'EXPO_PUBLIC_API_URL=https://api.tinkolektif.org' > .env
+npm install
+npx expo start -c
+```
+
+**Against local Docker:**
+
+```bash
+make build   # repo root, separate terminal
+cd mobile
+cp .env.example .env   # uses http://127.0.0.1:8000 or your LAN IP
 npm install
 npm start
 ```
 
-See [mobile/README.md](mobile/README.md) for API URL setup (simulator vs physical device vs production) and store build notes.
+See [mobile/README.md](mobile/README.md) and [docs/PRODUCTION.md](docs/PRODUCTION.md#mobile-app-production).
 
 ## Languages
 
@@ -226,7 +234,10 @@ Flow: provider → Django session → JWT issued → redirect to `/auth/callback
 backend/                  Django API
 frontend/                 React SPA
 mobile/                   Expo React Native app
-docs/URLS-AND-CONFIG.md   URLs and env vars (local + production)
+docs/
+  PRODUCTION.md           Full production guide (deploy, DNS, TLS, mobile)
+  URLS-AND-CONFIG.md      URLs and env vars (local + prod)
+  README.md               Documentation index
 scripts/setup.sh          Automation for macOS/Linux/Git Bash
 scripts/setup.ps1         Automation for Windows PowerShell
 docker-compose.yml        Local development stack
@@ -239,7 +250,9 @@ Makefile                  Short commands for daily use
 
 More details:
 
-- [docs/URLS-AND-CONFIG.md](docs/URLS-AND-CONFIG.md) — **URLs and environment variables**
+- [docs/PRODUCTION.md](docs/PRODUCTION.md) — **production deploy, DNS, TLS, mobile, troubleshooting**
+- [docs/URLS-AND-CONFIG.md](docs/URLS-AND-CONFIG.md) — URLs and environment variables
+- [docs/README.md](docs/README.md) — documentation index
 - [backend/README.md](backend/README.md)
 - [frontend/README.md](frontend/README.md)
 - [mobile/README.md](mobile/README.md)
@@ -289,7 +302,7 @@ bash deploy/fix-subdomains.sh
 bash deploy/check-site.sh
 ```
 
-Guides: [deploy/README.md](deploy/README.md) · [docs/URLS-AND-CONFIG.md](docs/URLS-AND-CONFIG.md)
+Guides: [docs/PRODUCTION.md](docs/PRODUCTION.md) · [deploy/README.md](deploy/README.md) · [docs/URLS-AND-CONFIG.md](docs/URLS-AND-CONFIG.md)
 
 ## Troubleshooting
 
@@ -384,7 +397,7 @@ Production: `https://api.tinkolektif.org/`
 
 ## Cloud deployment
 
-See [deploy/README.md](deploy/README.md). Summary:
+See **[docs/PRODUCTION.md](../docs/PRODUCTION.md)** and [deploy/README.md](deploy/README.md). Summary:
 
 ```bash
 git clone https://github.com/red-sanofi/tin-collective.git

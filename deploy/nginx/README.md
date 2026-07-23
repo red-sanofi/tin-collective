@@ -1,6 +1,6 @@
 # Host nginx configs (outside Docker)
 
-**Production URLs:** [docs/URLS-AND-CONFIG.md](../docs/URLS-AND-CONFIG.md)
+**Production URLs:** [docs/URLS-AND-CONFIG.md](../docs/URLS-AND-CONFIG.md) · [docs/PRODUCTION.md](../docs/PRODUCTION.md)
 
 Nginx on the VM terminates TLS and proxies to Docker:
 

@@ -2,7 +2,8 @@
 
 Host **nginx** (TLS + routing) runs on the VM. **Docker Compose** runs the app.
 
-**URL and env reference:** [docs/URLS-AND-CONFIG.md](../docs/URLS-AND-CONFIG.md)
+**URL and env reference:** [docs/URLS-AND-CONFIG.md](../docs/URLS-AND-CONFIG.md)  
+**Full production guide:** [docs/PRODUCTION.md](../docs/PRODUCTION.md)
 
 ## Public URLs
 
@@ -84,6 +85,12 @@ If nginx or api/admin HTTPS fails after deploy: `bash deploy/fix-subdomains.sh`
 | `deploy/fix-subdomains.sh` | **Fix api/admin `000` errors (nginx + TLS expand)** |
 | `deploy/diagnose-public.sh` | DNS / nginx / SSL for api + admin subdomains |
 | `deploy/diagnose-admin.sh` | Admin static file debug |
+
+## Mobile app (production API)
+
+The Expo app in `mobile/` calls `https://api.tinkolektif.org` when `EXPO_PUBLIC_API_URL` is set in `mobile/.env`. No server-side changes needed — native apps are not subject to CORS.
+
+Developers run Expo locally; the API is production. See [docs/PRODUCTION.md](../docs/PRODUCTION.md#mobile-app-production).
 
 ## OAuth redirect URIs
 

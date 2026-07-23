@@ -2,6 +2,8 @@
 
 Single reference for **local development**, **production-like Docker**, **live production**, and the **mobile app**.
 
+**Full production guide:** [PRODUCTION.md](PRODUCTION.md)
+
 ## Public URLs (production)
 
 | Service | URL | Notes |
@@ -70,16 +72,38 @@ Replace `DJANGO_SECRET_KEY` and `POSTGRES_PASSWORD` before going live.
 
 ## Mobile app (`mobile/`)
 
-| Environment | `EXPO_PUBLIC_API_URL` |
-|-------------|------------------------|
-| iOS Simulator + local API | `http://127.0.0.1:8000` |
-| Android Emulator + local API | `http://10.0.2.2:8000` |
-| Physical device (same Wi‑Fi) | `http://YOUR_PC_LAN_IP:8000` |
-| Production / store builds | `https://api.tinkolektif.org` |
+Expo **SDK 54** (matches App Store Expo Go). Requires Node.js **20.19+**.
 
-See [mobile/README.md](../mobile/README.md).
+| Environment | `EXPO_PUBLIC_API_URL` in `mobile/.env` |
+|-------------|----------------------------------------|
+| **Production (Expo Go or store)** | `https://api.tinkolektif.org` |
+| iOS Simulator + local Docker | `http://127.0.0.1:8000` |
+| Android Emulator + local Docker | `http://10.0.2.2:8000` |
+| Physical phone + local Docker (same Wi‑Fi) | `http://YOUR_PC_LAN_IP:8000` |
 
-## OAuth redirect URIs
+Production quick start:
+
+```bash
+cd mobile
+echo 'EXPO_PUBLIC_API_URL=https://api.tinkolektif.org' > .env
+npm install
+npx expo start -c
+```
+
+See [mobile/README.md](../mobile/README.md) and [PRODUCTION.md](PRODUCTION.md#mobile-app-production).
+
+## Deploy scripts (server)
+
+| Script | Purpose |
+|--------|---------|
+| `deploy/production.sh` | Full deploy after `git pull` |
+| `deploy/check-site.sh` | Health check (local Docker + public HTTPS) |
+| `deploy/fix-subdomains.sh` | Fix api/admin TLS or nginx |
+| `deploy/diagnose-public.sh` | DNS / nginx / cert debugging |
+| `deploy/diagnose-admin.sh` | Admin static CSS debugging |
+| `deploy/install-nginx.sh` | Install host nginx configs only |
+
+## Which file to edit
 
 | Environment | Google / GitHub callback |
 |-------------|--------------------------|
@@ -118,3 +142,6 @@ There is **no** `/api` prefix on production or in current frontend/mobile client
 | Host nginx / TLS | `deploy/nginx/*.conf`, `bash deploy/install-nginx.sh` |
 | One-command server deploy | `bash deploy/production.sh` |
 | Health check | `bash deploy/check-site.sh` |
+| Full production guide | [docs/PRODUCTION.md](PRODUCTION.md) |
+
+## OAuth redirect URIs

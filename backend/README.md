@@ -2,7 +2,7 @@
 
 REST API for Tin Kolektif: authentication, educations, announcements, join applications, social feed, and site settings.
 
-**URLs and env vars:** [docs/URLS-AND-CONFIG.md](../docs/URLS-AND-CONFIG.md)
+**URLs and env vars:** [docs/URLS-AND-CONFIG.md](../docs/URLS-AND-CONFIG.md) · **Production:** [docs/PRODUCTION.md](../docs/PRODUCTION.md)
 
 ## Run with Docker (recommended)
 
