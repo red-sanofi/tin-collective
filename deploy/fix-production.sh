@@ -35,6 +35,9 @@ bash deploy/install-nginx.sh
 echo "Recreating production containers..."
 docker compose -f docker-compose.prod.yml up --build -d
 
+echo "Waiting for backend to finish startup..."
+bash deploy/wait-for-backend.sh
+
 echo "Ensuring Django static files are collected..."
 docker compose -f docker-compose.prod.yml exec -T backend python manage.py collectstatic --noinput
 

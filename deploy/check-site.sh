@@ -25,6 +25,15 @@ pass() { PASS=$((PASS + 1)); green "PASS  $1"; }
 warn() { WARN=$((WARN + 1)); yellow "WARN  $1"; }
 fail() { FAIL=$((FAIL + 1)); red "FAIL  $1"; }
 
+explain_code() {
+  code="$1"
+  case "$code" in
+    000) printf ' (connection failed — backend still starting, nginx down, or DNS/SSL issue)' ;;
+    502) printf ' (nginx cannot reach backend on 127.0.0.1:8000)' ;;
+    503) printf ' (service unavailable)' ;;
+  esac
+}
+
 check_cmd() {
   if command -v "$1" >/dev/null 2>&1; then
     pass "$1 is installed"
@@ -92,6 +101,13 @@ else
   fail "docker compose -f $COMPOSE_FILE ps failed"
 fi
 
+section "Backend readiness"
+if bash deploy/wait-for-backend.sh; then
+  pass "backend responded on $LOCAL_API"
+else
+  fail "backend not ready — see logs above; checks below may fail"
+fi
+
 section "Local Docker ports"
 check_local() {
   name="$1"
@@ -101,7 +117,7 @@ check_local() {
   if [ "$code" = "$expect" ]; then
     pass "local $name -> $url ($code)"
   else
-    fail "local $name -> $url (expected $expect, got $code)"
+    fail "local $name -> $url (expected $expect, got $code)$(explain_code "$code")"
   fi
 }
 
@@ -114,7 +130,7 @@ code="$(http_code "$API_URL/")"
 if [ "$code" = "200" ]; then
   pass "API root $API_URL/ ($code)"
 else
-  fail "API root $API_URL/ (expected 200, got $code)"
+  fail "API root $API_URL/ (expected 200, got $code)$(explain_code "$code")"
 fi
 
 if body_contains "$API_URL/" "Tin Kolektif API"; then
@@ -151,8 +167,10 @@ else
 fi
 
 code="$(http_code "$FRONTEND_URL/api/educations/")"
-if [ "$code" = "404" ] || [ "$code" = "000" ]; then
+if [ "$code" = "404" ]; then
   pass "old path $FRONTEND_URL/api/... is not used ($code)"
+elif [ "$code" = "502" ]; then
+  warn "old /api path returns 502 — remove any /api proxy from tinkolektif.org nginx"
 else
   warn "old /api path still responds ($code) — frontend should use $API_URL"
 fi
