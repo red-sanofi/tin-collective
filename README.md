@@ -83,6 +83,7 @@ Use the admin account to access:
 | `make prod` | Run production-like stack on http://localhost:8080 |
 | `make production` | **Server:** deploy tinkolektif.org (one command) |
 | `make deploy-check` | **Server:** run health checks only |
+| `make mobile` | Start the Expo mobile app (requires Node.js) |
 | `make check` | Verify Docker is ready |
 | `make help` | Show all commands |
 
@@ -123,6 +124,23 @@ On first startup the backend will:
 - Join Us application form
 - Django admin at `/admin`
 - Turkish by default with English available via the header language switcher
+
+## Mobile app
+
+A React Native app lives in [`mobile/`](mobile/). It connects to the same API as the web frontend.
+
+```bash
+# Start the API first (Docker)
+make build
+
+# In another terminal
+cd mobile
+cp .env.example .env
+npm install
+npm start
+```
+
+See [mobile/README.md](mobile/README.md) for API URL setup (simulator vs physical device vs production) and store build notes.
 
 ## Languages
 

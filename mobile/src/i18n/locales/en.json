@@ -1,0 +1,122 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "viewAll": "View all",
+    "viewDetails": "View details",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back"
+  },
+  "nav": {
+    "home": "Home",
+    "educations": "Educations",
+    "announcements": "Announcements",
+    "profile": "Profile",
+    "joinUs": "Join us"
+  },
+  "home": {
+    "eyebrow": "Collective learning platform",
+    "title": "Tin Kolektif",
+    "subtitle": "Workshops, educations, and community announcements — crafted together.",
+    "workshopsTitle": "Upcoming workshops",
+    "journalTitle": "Journal",
+    "joinCta": "Join the community"
+  },
+  "educations": {
+    "title": "Educations & workshops",
+    "subtitle": "Browse upcoming sessions and register.",
+    "allCategories": "All categories",
+    "loading": "Loading educations...",
+    "empty": "No published educations yet.",
+    "when": "When",
+    "where": "Where",
+    "mode": "Format",
+    "capacity": "Capacity",
+    "spotsLeft": "{{count}} spots left",
+    "full": "Full",
+    "register": "Register",
+    "cancelRegistration": "Cancel registration",
+    "loginToRegister": "Log in to register",
+    "registrationSuccess": "You are registered.",
+    "registrationCancelled": "Registration cancelled.",
+    "back": "Back to educations"
+  },
+  "announcements": {
+    "title": "Announcements",
+    "subtitle": "Community news and open calls.",
+    "loading": "Loading announcements...",
+    "empty": "No announcements yet.",
+    "back": "Back to announcements"
+  },
+  "auth": {
+    "loginTitle": "Log in",
+    "registerTitle": "Sign up",
+    "username": "Username",
+    "password": "Password",
+    "email": "Email",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "loginButton": "Log in",
+    "registerButton": "Create account",
+    "noAccount": "No account yet?",
+    "hasAccount": "Already have an account?",
+    "goRegister": "Sign up",
+    "goLogin": "Log in",
+    "logout": "Log out"
+  },
+  "profile": {
+    "title": "My profile",
+    "guestTitle": "Your account",
+    "guestCopy": "Log in to register for workshops and manage your profile.",
+    "updated": "Profile updated.",
+    "registrationsTitle": "My registrations",
+    "noRegistrations": "You have not registered for any education yet.",
+    "bio": "About me",
+    "phone": "Phone"
+  },
+  "joinUs": {
+    "title": "Join us",
+    "copy": "Fill out the form to join the Tin Kolektif community.",
+    "submit": "Submit application",
+    "success": "Application received. Thank you!"
+  },
+  "forms": {
+    "fullName": "Full name",
+    "phone": "Phone",
+    "interestArea": "Interest area",
+    "portfolioUrl": "Portfolio URL",
+    "aboutYou": "About you"
+  },
+  "categories": {
+    "Workshop": "Workshop",
+    "Technology": "Technology",
+    "Culture": "Culture"
+  },
+  "deliveryModes": {
+    "InPerson": "In person",
+    "Online": "Online",
+    "Hybrid": "Hybrid"
+  },
+  "interestAreas": {
+    "Education": "Education",
+    "Workshop": "Workshop",
+    "Technology": "Technology",
+    "Culture": "Culture",
+    "Volunteer": "Volunteer"
+  },
+  "registrationStatus": {
+    "confirmed": "Confirmed",
+    "cancelled": "Cancelled",
+    "waitlisted": "Waitlisted"
+  },
+  "errors": {
+    "requestFailed": "Request failed.",
+    "network": "Network error. Check your connection."
+  },
+  "language": {
+    "label": "Language",
+    "tr": "Türkçe",
+    "en": "English"
+  }
+}

@@ -66,6 +66,9 @@ backend/staticfiles/
 
 # Node
 node_modules/
+mobile/node_modules/
+mobile/.expo/
+mobile/dist/
 frontend/dist/
 frontend/public/brand/_extracted/
 

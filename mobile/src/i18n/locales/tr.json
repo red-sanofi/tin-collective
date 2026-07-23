@@ -1,0 +1,122 @@
+{
+  "common": {
+    "loading": "Yükleniyor...",
+    "viewAll": "Tümünü gör",
+    "viewDetails": "Detayları gör",
+    "retry": "Tekrar dene",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "back": "Geri"
+  },
+  "nav": {
+    "home": "Ana sayfa",
+    "educations": "Eğitimler",
+    "announcements": "Duyurular",
+    "profile": "Profil",
+    "joinUs": "Bize Katıl"
+  },
+  "home": {
+    "eyebrow": "Kolektif öğrenme platformu",
+    "title": "Tin Kolektif",
+    "subtitle": "Atölyeler, eğitimler ve topluluk duyuruları — el emeğiyle bir araya geliyoruz.",
+    "workshopsTitle": "Yaklaşan Atölyeler",
+    "journalTitle": "Yazıhane",
+    "joinCta": "Topluluğa katıl"
+  },
+  "educations": {
+    "title": "Eğitimler & atölyeler",
+    "subtitle": "Yaklaşan oturumları keşfedin ve kayıt olun.",
+    "allCategories": "Tüm kategoriler",
+    "loading": "Eğitimler yükleniyor...",
+    "empty": "Henüz yayınlanmış eğitim yok.",
+    "when": "Tarih",
+    "where": "Konum",
+    "mode": "Format",
+    "capacity": "Kontenjan",
+    "spotsLeft": "{{count}} yer kaldı",
+    "full": "Dolu",
+    "register": "Kayıt ol",
+    "cancelRegistration": "Kaydı iptal et",
+    "loginToRegister": "Kayıt olmak için giriş yapın",
+    "registrationSuccess": "Kaydınız alındı.",
+    "registrationCancelled": "Kaydınız iptal edildi.",
+    "back": "Eğitimlere dön"
+  },
+  "announcements": {
+    "title": "Duyurular",
+    "subtitle": "Topluluk haberleri ve açık çağrılar.",
+    "loading": "Duyurular yükleniyor...",
+    "empty": "Henüz duyuru yok.",
+    "back": "Duyurulara dön"
+  },
+  "auth": {
+    "loginTitle": "Giriş yap",
+    "registerTitle": "Kayıt ol",
+    "username": "Kullanıcı adı",
+    "password": "Şifre",
+    "email": "E-posta",
+    "firstName": "Ad",
+    "lastName": "Soyad",
+    "loginButton": "Giriş yap",
+    "registerButton": "Hesap oluştur",
+    "noAccount": "Hesabınız yok mu?",
+    "hasAccount": "Zaten hesabınız var mı?",
+    "goRegister": "Kayıt olun",
+    "goLogin": "Giriş yapın",
+    "logout": "Çıkış yap"
+  },
+  "profile": {
+    "title": "Profilim",
+    "guestTitle": "Hesabınız",
+    "guestCopy": "Atölyelere kayıt olmak ve profilinizi yönetmek için giriş yapın.",
+    "updated": "Profiliniz güncellendi.",
+    "registrationsTitle": "Kayıtlı eğitimlerim",
+    "noRegistrations": "Henüz bir eğitime kayıt olmadınız.",
+    "bio": "Hakkımda",
+    "phone": "Telefon"
+  },
+  "joinUs": {
+    "title": "Bize Katıl",
+    "copy": "Tin Kolektif topluluğuna katılmak için formu doldurun.",
+    "submit": "Başvuruyu gönder",
+    "success": "Başvurunuz alındı. Teşekkürler!"
+  },
+  "forms": {
+    "fullName": "Ad soyad",
+    "phone": "Telefon",
+    "interestArea": "İlgi alanı",
+    "portfolioUrl": "Portfolyo bağlantısı",
+    "aboutYou": "Kendinizden bahsedin"
+  },
+  "categories": {
+    "Workshop": "Atölye",
+    "Technology": "Teknoloji",
+    "Culture": "Kültür"
+  },
+  "deliveryModes": {
+    "InPerson": "Yüz yüze",
+    "Online": "Çevrimiçi",
+    "Hybrid": "Hibrit"
+  },
+  "interestAreas": {
+    "Education": "Eğitim",
+    "Workshop": "Atölye",
+    "Technology": "Teknoloji",
+    "Culture": "Kültür",
+    "Volunteer": "Gönüllülük"
+  },
+  "registrationStatus": {
+    "confirmed": "Onaylandı",
+    "cancelled": "İptal edildi",
+    "waitlisted": "Bekleme listesinde"
+  },
+  "errors": {
+    "requestFailed": "İstek başarısız oldu.",
+    "network": "Ağ hatası. Bağlantınızı kontrol edin."
+  },
+  "language": {
+    "label": "Dil",
+    "tr": "Türkçe",
+    "en": "English"
+  }
+}

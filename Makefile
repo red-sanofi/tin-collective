@@ -6,7 +6,7 @@ PROD_COMPOSE_FILE ?= docker-compose.prod.yml
 ENV_FILE ?= .env
 ENV_EXAMPLE ?= .env.example
 
-.PHONY: help setup check build up start run down logs ps clean prod prod-down restart production deploy-check
+.PHONY: help setup check build up start run down logs ps clean prod prod-down restart production deploy-check mobile
 
 help:
 	@echo "Tin Kolektif - common commands"
@@ -21,6 +21,7 @@ help:
 	@echo "  make prod      Run production-like stack on http://localhost:8080"
 	@echo "  make production  Deploy tinkolektif.org on the server (see deploy/README.md)"
 	@echo "  make deploy-check  Run production health checks only"
+	@echo "  make mobile      Start Expo mobile app (see mobile/README.md)"
 	@echo "  make check     Verify Docker is installed and running"
 	@echo ""
 	@echo "One-liner after clone:"
@@ -65,5 +66,8 @@ production:
 
 deploy-check:
 	@bash deploy/check-site.sh
+
+mobile:
+	@cd mobile && npm install && npm start
 
 restart: down start
