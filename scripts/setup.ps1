@@ -79,6 +79,7 @@ function Print-Urls {
     Write-Ok "Tin Kolektif is starting."
     Write-Host ""
     Write-Host "  App:          http://localhost:8080"
+    Write-Host "  In-app admin: http://localhost:8080/admin"
     Write-Host "  API:          http://localhost:8000/"
     Write-Host "  Django admin: http://localhost:8000/admin/"
     Write-Host ""
@@ -96,7 +97,7 @@ function Print-ProdUrls {
     Write-Ok "Production-like stack is starting."
     Write-Host ""
     Write-Host "  App: http://localhost:8080"
-    Write-Host ""
+    Write-Host "  API: http://localhost:8000/ (backend; prod bundle uses https://api.tinkolektif.org)"
 }
 
 switch ($Command) {

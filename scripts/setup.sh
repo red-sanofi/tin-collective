@@ -63,6 +63,7 @@ print_urls() {
   success "Tin Kolektif is starting."
   echo ""
   echo "  App:          http://localhost:8080"
+  echo "  In-app admin: http://localhost:8080/admin"
   echo "  API:          http://localhost:8000/"
   echo "  Django admin: http://localhost:8000/admin/"
   echo ""
@@ -80,7 +81,7 @@ print_prod_urls() {
   success "Production-like stack is starting."
   echo ""
   echo "  App: http://localhost:8080"
-  echo "  API: https://api.tinkolektif.org (production) or http://localhost:8000 (local backend)"
+  echo "  API: http://localhost:8000/ (backend; prod bundle uses https://api.tinkolektif.org)"
   echo ""
 }
 

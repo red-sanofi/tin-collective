@@ -1,6 +1,8 @@
 # Frontend (React SPA)
 
-React single-page application for Tin Kolektif, built with Vite.
+React single-page application for [Tin Kolektif](https://tinkolektif.org), built with Vite.
+
+**URLs and env vars:** [docs/URLS-AND-CONFIG.md](../docs/URLS-AND-CONFIG.md)
 
 ## Run with Docker (recommended)
 
@@ -10,31 +12,49 @@ From the repository root:
 make build
 ```
 
-The frontend starts automatically on http://localhost:5173.
+| URL | Purpose |
+|-----|---------|
+| http://localhost:8080 | App (port mapped to Vite inside the container) |
+| http://localhost:8080/admin | In-app staff admin |
+| http://localhost:8000/ | API (called directly by the browser) |
 
 ## Run locally without Docker (advanced)
 
 Requirements:
 
 - Node.js 20+
-- Backend API running on http://localhost:8000
-
-Steps:
+- Backend API on http://localhost:8000
 
 ```bash
 cd frontend
 npm install
+cp ../.env.example ../.env   # if needed
 npm run dev
 ```
 
-Open http://localhost:5173
+Open http://localhost:5173 and set in `.env`:
 
-The Vite dev server proxies `/api` requests to the backend.
+```bash
+FRONTEND_URL=http://localhost:5173
+VITE_API_URL=http://localhost:8000
+```
+
+The Vite dev server can proxy API paths (`/auth`, `/educations`, `/announcements`, `/join`, `/social`, `/site`) to the backend when `VITE_API_PROXY_TARGET` is set (Docker sets this automatically).
+
+## Production
+
+The live site is **https://tinkolektif.org**. The built bundle calls **https://api.tinkolektif.org** (no `/api` prefix). Set at build time:
+
+```bash
+VITE_API_URL=https://api.tinkolektif.org
+```
+
+`docker-compose.prod.yml` and `deploy/production.sh` apply this on the server.
 
 ## Scripts
 
 ```bash
-npm run dev      # Start dev server
+npm run dev      # Start dev server (port 5173)
 npm run build    # Production build to dist/
 npm run preview  # Preview production build
 ```
@@ -56,13 +76,12 @@ npm run preview  # Preview production build
 
 - Default language: Turkish (`tr`)
 - Also available: English (`en`)
-- Language switcher in the header saves your choice in `localStorage`
-- Date and time formatting follows the active language
-- API requests send `Accept-Language` so backend validation messages match the UI
+- Language switcher saves choice in `localStorage`
+- API requests send `Accept-Language` for localized errors
 
 ## Environment
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `VITE_API_URL` | `/api` | API base path used by the browser |
-| `VITE_API_PROXY_TARGET` | `http://backend:8000` | Dev proxy target inside Docker |
+| Variable | Local (Docker) | Production |
+|----------|----------------|------------|
+| `VITE_API_URL` | `http://localhost:8000` | `https://api.tinkolektif.org` |
+| `VITE_API_PROXY_TARGET` | `http://backend:8000` (inside Compose) | N/A (nginx serves static build) |

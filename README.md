@@ -1,6 +1,8 @@
 # Tin Kolektif Platform
 
-Interactive web platform for Tin Kolektif: educations, announcements, user accounts, and join-us applications.
+Interactive web and mobile platform for Tin Kolektif: educations, announcements, user accounts, and join-us applications.
+
+**Production:** https://tinkolektif.org · **API:** https://api.tinkolektif.org/ · **Config reference:** [docs/URLS-AND-CONFIG.md](docs/URLS-AND-CONFIG.md)
 
 ## One-command start
 
@@ -30,14 +32,15 @@ That single command will:
 
 When containers are ready, open:
 
-| Service | URL |
-|---------|-----|
-| App | http://localhost:8080 |
-| API | http://localhost:8000/ |
-| Django admin | http://localhost:8000/admin/ |
-| Production site | https://tinkolektif.org |
-| Production API | https://api.tinkolektif.org/ |
-| Production admin | https://admin.tinkolektif.org/admin/ |
+| Service | Local (Docker) | Production |
+|---------|----------------|------------|
+| App | http://localhost:8080 | https://tinkolektif.org |
+| API | http://localhost:8000/ | https://api.tinkolektif.org/ |
+| Django admin | http://localhost:8000/admin/ | https://admin.tinkolektif.org/admin/ |
+| In-app admin | http://localhost:8080/admin | https://tinkolektif.org/admin |
+| Mobile app | see [mobile/README.md](mobile/README.md) | API: https://api.tinkolektif.org |
+
+Full URL and environment variable reference: **[docs/URLS-AND-CONFIG.md](docs/URLS-AND-CONFIG.md)**
 
 Stop the stack with:
 
@@ -66,8 +69,8 @@ Seeded automatically on first backend startup:
 
 Use the admin account to access:
 
-- In-app **Admin** page at http://localhost:5173/admin
-- Django admin at http://localhost:8000/admin/
+- In-app **Admin** at http://localhost:8080/admin (production: https://tinkolektif.org/admin)
+- Django admin at http://localhost:8000/admin/ (production: https://admin.tinkolektif.org/admin/)
 
 ## Common commands
 
@@ -162,14 +165,25 @@ Social login is optional. Without credentials, the app falls back to username/pa
 
 ### 1. Copy env vars into `.env`
 
+Local Docker (`make build`):
+
 ```bash
+FRONTEND_URL=http://localhost:8080
+BACKEND_PUBLIC_URL=http://localhost:8000
 GOOGLE_CLIENT_ID=...
 GOOGLE_CLIENT_SECRET=...
 GITHUB_CLIENT_ID=...
 GITHUB_CLIENT_SECRET=...
-FRONTEND_URL=http://localhost:5173
-BACKEND_PUBLIC_URL=http://localhost:8000
 ```
+
+Production server (`.env` from `.env.production.example`):
+
+```bash
+FRONTEND_URL=https://tinkolektif.org
+BACKEND_PUBLIC_URL=https://api.tinkolektif.org
+```
+
+See [docs/URLS-AND-CONFIG.md](docs/URLS-AND-CONFIG.md) for the full list.
 
 ### 2. Google Cloud Console
 
@@ -201,28 +215,35 @@ Flow: provider → Django session → JWT issued → redirect to `/auth/callback
 
 - **Backend:** Django + Django REST Framework + JWT auth
 - **Frontend:** React SPA (Vite)
+- **Mobile:** Expo React Native ([mobile/](mobile/))
 - **Database:** PostgreSQL
-- **Runtime:** Docker Compose
+- **Runtime:** Docker Compose (local + production containers)
+- **Production TLS/routing:** Host nginx ([deploy/nginx/](deploy/nginx/))
 
 ## Project structure
 
 ```text
 backend/                  Django API
 frontend/                 React SPA
+mobile/                   Expo React Native app
+docs/URLS-AND-CONFIG.md   URLs and env vars (local + production)
 scripts/setup.sh          Automation for macOS/Linux/Git Bash
 scripts/setup.ps1         Automation for Windows PowerShell
 docker-compose.yml        Local development stack
-docker-compose.prod.yml   Production stack for tinkolektif.org
-deploy/                   Host nginx configs + production guide
+docker-compose.prod.yml   Production containers (with host nginx)
+deploy/                   Host nginx configs + production scripts
+.env.example              Local env template
 .env.production.example   Production env template
 Makefile                  Short commands for daily use
-.env.example              Environment template copied to .env on first run
 ```
 
 More details:
 
+- [docs/URLS-AND-CONFIG.md](docs/URLS-AND-CONFIG.md) — **URLs and environment variables**
 - [backend/README.md](backend/README.md)
 - [frontend/README.md](frontend/README.md)
+- [mobile/README.md](mobile/README.md)
+- [deploy/README.md](deploy/README.md)
 
 ## Production-like local run
 
@@ -236,7 +257,14 @@ This uses nginx for the frontend and the same Django/PostgreSQL services.
 
 ## Production server (tinkolektif.org)
 
-Host nginx runs **outside Docker**. The app runs with `docker-compose.prod.yml`.
+Host nginx runs **outside Docker**. Containers use `docker-compose.prod.yml`.
+
+| URL | Purpose |
+|-----|---------|
+| https://tinkolektif.org | Public site |
+| https://api.tinkolektif.org/ | REST API (no `/api` prefix) |
+| https://admin.tinkolektif.org/admin/ | Django admin |
+| https://tinkolektif.org/admin | In-app staff admin |
 
 **One command** on the server after each `git pull`:
 
@@ -244,27 +272,24 @@ Host nginx runs **outside Docker**. The app runs with `docker-compose.prod.yml`.
 cd ~/tin-collective && git pull && bash deploy/production.sh
 ```
 
-Or:
+First-time setup:
 
 ```bash
-make production
+git clone https://github.com/red-sanofi/tin-collective.git
+cd tin-collective
+cp .env.production.example .env
+# Edit .env — DJANGO_SECRET_KEY, POSTGRES_PASSWORD, OAuth keys
+bash deploy/production.sh
 ```
 
-| URL | Purpose |
-|-----|---------|
-| https://tinkolektif.org | Public site |
-| https://api.tinkolektif.org/ | REST API (no `/api` prefix) |
-| https://admin.tinkolektif.org/admin/ | Django admin |
-
-First-time setup: copy `.env.production.example` to `.env`, set secrets, then run the command above.
-
-Full guide: [deploy/README.md](deploy/README.md)
-
-Re-run health checks anytime:
+If api or admin subdomains fail health checks:
 
 ```bash
+bash deploy/fix-subdomains.sh
 bash deploy/check-site.sh
 ```
+
+Guides: [deploy/README.md](deploy/README.md) · [docs/URLS-AND-CONFIG.md](docs/URLS-AND-CONFIG.md)
 
 ## Troubleshooting
 
@@ -286,37 +311,27 @@ Use PowerShell instead:
 
 Or run commands from **Git Bash**, which includes `make` in many installations.
 
-### Production checks fail with `000` or backend not ready
+### Production checks fail with `000` or api/admin unreachable
 
-The backend takes up to ~3 minutes on first boot (migrations + seed). Run:
+Docker and the main site may work while `https://api.tinkolektif.org` or `https://admin.tinkolektif.org` fail — usually nginx or TLS, not Django:
+
+```bash
+bash deploy/fix-subdomains.sh
+bash deploy/check-site.sh
+```
+
+Backend still starting on first boot:
 
 ```bash
 bash deploy/wait-for-backend.sh
 bash deploy/check-site.sh
 ```
 
-Or redeploy everything:
-
-```bash
-bash deploy/production.sh
-```
+Or redeploy: `bash deploy/production.sh`
 
 ### `DisallowedHost` on server IP or domain
 
-Django blocks requests when the host is not listed in `DJANGO_ALLOWED_HOSTS`. On your server `.env`:
-
-```bash
-DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,backend,tinkolektif.org,www.tinkolektif.org,api.tinkolektif.org,admin.tinkolektif.org
-CORS_ALLOWED_ORIGINS=https://tinkolektif.org,https://www.tinkolektif.org
-CSRF_TRUSTED_ORIGINS=https://admin.tinkolektif.org
-FRONTEND_URL=https://tinkolektif.org
-BACKEND_PUBLIC_URL=https://api.tinkolektif.org
-SITE_DOMAIN=tinkolektif.org
-API_SITE_DOMAIN=api.tinkolektif.org
-VITE_API_URL=https://api.tinkolektif.org
-```
-
-See [deploy/README.md](deploy/README.md) for full production setup.
+Use production values from `.env.production.example` or run `bash deploy/production.sh`. See [docs/URLS-AND-CONFIG.md](docs/URLS-AND-CONFIG.md).
 
 ### Reset everything
 

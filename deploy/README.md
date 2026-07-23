@@ -2,6 +2,20 @@
 
 Host **nginx** (TLS + routing) runs on the VM. **Docker Compose** runs the app.
 
+**URL and env reference:** [docs/URLS-AND-CONFIG.md](../docs/URLS-AND-CONFIG.md)
+
+## Public URLs
+
+| URL | Service | Docker port |
+|-----|---------|-------------|
+| https://tinkolektif.org | React frontend + in-app `/admin` | `127.0.0.1:8080` |
+| https://api.tinkolektif.org/ | Django API (**no `/api` prefix**) | `127.0.0.1:8000` |
+| https://admin.tinkolektif.org/admin/ | Django admin | `127.0.0.1:8000` |
+
+**DNS:** A records for `tinkolektif.org`, `www`, `api`, and `admin` → server IP.
+
+**TLS:** Certificate at `/etc/letsencrypt/live/tinkolektif.org/` must include all hostnames. Use `bash deploy/fix-subdomains.sh` if api/admin return connection errors.
+
 ## One command
 
 Run this on the server whenever you pull changes or need to fix the stack:
@@ -28,13 +42,17 @@ This single script:
 
 If anything fails, read the output — backend logs are printed automatically when the wait step times out.
 
-## Domains
+## Required production `.env`
 
-| URL | Service | Docker port |
-|-----|---------|-------------|
-| https://tinkolektif.org | React frontend | `127.0.0.1:8080` |
-| https://api.tinkolektif.org | Django API (no `/api` prefix) | `127.0.0.1:8000` |
-| https://admin.tinkolektif.org/admin/ | Django admin | `127.0.0.1:8000` |
+Copy `.env.production.example` to `.env` and set secrets. `production.sh` ensures at least:
+
+```bash
+VITE_API_URL=https://api.tinkolektif.org
+BACKEND_PUBLIC_URL=https://api.tinkolektif.org
+FRONTEND_URL=https://tinkolektif.org
+CORS_ALLOWED_ORIGINS=https://tinkolektif.org,https://www.tinkolektif.org
+CSRF_TRUSTED_ORIGINS=https://admin.tinkolektif.org
+```
 
 ## First-time server setup
 
@@ -43,10 +61,16 @@ git clone https://github.com/red-sanofi/tin-collective.git
 cd tin-collective
 cp .env.production.example .env
 # Edit .env — set DJANGO_SECRET_KEY and POSTGRES_PASSWORD
+
+# TLS (once): expand cert for all subdomains, then deploy
+sudo certbot certonly --nginx --expand --cert-name tinkolektif.org \
+  -d tinkolektif.org -d www.tinkolektif.org \
+  -d api.tinkolektif.org -d admin.tinkolektif.org
+
 bash deploy/production.sh
 ```
 
-TLS certificates (Certbot) must exist at `/etc/letsencrypt/live/tinkolektif.org/` before nginx reload succeeds.
+If nginx or api/admin HTTPS fails after deploy: `bash deploy/fix-subdomains.sh`
 
 ## Scripts
 
