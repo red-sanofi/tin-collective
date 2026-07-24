@@ -2,6 +2,8 @@
 
 Interactive web and mobile platform for Tin Kolektif: educations, announcements, user accounts, and join-us applications.
 
+**Türkçe:** [README.tr.md](README.tr.md) · **Docs (TR):** [docs/README.tr.md](docs/README.tr.md)
+
 **Production:** https://tinkolektif.org · **API:** https://api.tinkolektif.org/ · **Docs:** [docs/PRODUCTION.md](docs/PRODUCTION.md) · [docs/URLS-AND-CONFIG.md](docs/URLS-AND-CONFIG.md)
 
 ## One-command start

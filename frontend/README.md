@@ -1,5 +1,7 @@
 # Frontend (React SPA)
 
+**Türkçe:** [README.tr.md](README.tr.md)
+
 React single-page application for [Tin Kolektif](https://tinkolektif.org), built with Vite.
 
 **URLs and env vars:** [docs/URLS-AND-CONFIG.md](../docs/URLS-AND-CONFIG.md) · **Production:** [docs/PRODUCTION.md](../docs/PRODUCTION.md)

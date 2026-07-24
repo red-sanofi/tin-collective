@@ -1,5 +1,7 @@
 # Production deployment — tinkolektif.org
 
+**Türkçe:** [README.tr.md](README.tr.md)
+
 Host **nginx** (TLS + routing) runs on the VM. **Docker Compose** runs the app.
 
 **URL and env reference:** [docs/URLS-AND-CONFIG.md](../docs/URLS-AND-CONFIG.md)  

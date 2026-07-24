@@ -1,5 +1,7 @@
 # Production guide — tinkolektif.org
 
+**Türkçe (ürün / operasyon):** [PRODUCTION.tr.md](PRODUCTION.tr.md)
+
 Complete reference for the **live** Tin Kolektif stack: web, API, admin, mobile, and server operations.
 
 Quick links: [URLs & env vars](URLS-AND-CONFIG.md) · [Deploy scripts](../deploy/README.md) · [Nginx configs](../deploy/nginx/README.md) · [Mobile app](../mobile/README.md)

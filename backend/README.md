@@ -1,5 +1,7 @@
 # Backend (Django API)
 
+**Türkçe:** [README.tr.md](README.tr.md)
+
 REST API for Tin Kolektif: authentication, educations, announcements, join applications, social feed, and site settings.
 
 **URLs and env vars:** [docs/URLS-AND-CONFIG.md](../docs/URLS-AND-CONFIG.md) · **Production:** [docs/PRODUCTION.md](../docs/PRODUCTION.md)

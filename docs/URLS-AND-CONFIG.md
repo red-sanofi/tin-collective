@@ -1,5 +1,7 @@
 # URLs and configuration reference
 
+**Türkçe:** [URLS-AND-CONFIG.tr.md](URLS-AND-CONFIG.tr.md)
+
 Single reference for **local development**, **production-like Docker**, **live production**, and the **mobile app**.
 
 **Full production guide:** [PRODUCTION.md](PRODUCTION.md)
@@ -103,7 +105,7 @@ See [mobile/README.md](../mobile/README.md) and [PRODUCTION.md](PRODUCTION.md#mo
 | `deploy/diagnose-admin.sh` | Admin static CSS debugging |
 | `deploy/install-nginx.sh` | Install host nginx configs only |
 
-## Which file to edit
+## OAuth redirect URIs
 
 | Environment | Google / GitHub callback |
 |-------------|--------------------------|
@@ -143,5 +145,3 @@ There is **no** `/api` prefix on production or in current frontend/mobile client
 | One-command server deploy | `bash deploy/production.sh` |
 | Health check | `bash deploy/check-site.sh` |
 | Full production guide | [docs/PRODUCTION.md](PRODUCTION.md) |
-
-## OAuth redirect URIs

@@ -1,5 +1,7 @@
 # Tin Kolektif Mobile
 
+**Türkçe:** [README.tr.md](README.tr.md)
+
 React Native app for [Tin Kolektif](https://tinkolektif.org) — **Expo SDK 54**, **Expo Router**, same Django API as the web app.
 
 | Doc | Contents |

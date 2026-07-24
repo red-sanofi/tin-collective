@@ -1,15 +1,17 @@
 # Documentation index
 
+**Türkçe:** [README.tr.md](README.tr.md)
+
 | Doc | Audience | Contents |
 |-----|----------|----------|
-| **[PRODUCTION.md](PRODUCTION.md)** | Server ops, mobile prod | Full production guide: deploy, DNS, TLS, troubleshooting |
-| **[URLS-AND-CONFIG.md](URLS-AND-CONFIG.md)** | Everyone | All URLs and environment variables (local + prod) |
-| [../deploy/README.md](../deploy/README.md) | Server | Deploy scripts and nginx install |
-| [../deploy/nginx/README.md](../deploy/nginx/README.md) | Server | Host nginx vhost details |
-| [../mobile/README.md](../mobile/README.md) | Mobile devs | Expo SDK 54, Expo Go, store builds |
-| [../README.md](../README.md) | Everyone | Project overview and local Docker setup |
-| [../backend/README.md](../backend/README.md) | Backend devs | Django API routes |
-| [../frontend/README.md](../frontend/README.md) | Frontend devs | React SPA and Vite |
+| **[PRODUCTION.md](PRODUCTION.md)** · [TR](PRODUCTION.tr.md) | Server ops, mobile prod | Full production guide |
+| **[URLS-AND-CONFIG.md](URLS-AND-CONFIG.md)** · [TR](URLS-AND-CONFIG.tr.md) | Everyone | URLs and env vars |
+| [../deploy/README.md](../deploy/README.md) · [TR](../deploy/README.tr.md) | Server | Deploy scripts |
+| [../deploy/nginx/README.md](../deploy/nginx/README.md) · [TR](../deploy/nginx/README.tr.md) | Server | Host nginx |
+| [../mobile/README.md](../mobile/README.md) · [TR](../mobile/README.tr.md) | Mobile devs | Expo app |
+| [../README.md](../README.md) · [TR](../README.tr.md) | Everyone | Project overview |
+| [../backend/README.md](../backend/README.md) · [TR](../backend/README.tr.md) | Backend devs | Django API |
+| [../frontend/README.md](../frontend/README.md) · [TR](../frontend/README.tr.md) | Frontend devs | React SPA |
 
 ## Production at a glance
 
